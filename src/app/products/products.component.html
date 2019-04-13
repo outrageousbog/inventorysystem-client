@@ -1,0 +1,28 @@
+<div class="col-xl-12">
+
+  <form [formGroup]="productSearch" (ngSubmit)="onSubmit()">
+    <label for="search">Search for a product</label>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Name</span>
+      </div>
+      <input type="text"
+             id="search"
+             class="form-control"
+             formControlName="nameSearch"
+             placeholder="ferrari">
+      <div class="input-group-append">
+        <button class="input-group-append btn btn-primary" type="submit">Search</button>
+      </div>
+    </div>
+  </form>
+
+
+  <div class="row" *ngIf="searched">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let product of productList; let i=index">
+        {{ product.productName }}, {{ product.productBrand }}
+      </li>
+    </ul>
+  </div>
+</div>

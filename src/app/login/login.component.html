@@ -1,0 +1,36 @@
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h2 class="card-title">Login</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          class="form-control">
+        <span class="help-block" *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">
+          <span *ngIf="loginForm.get('username').errors['required']">
+            This field is required
+          </span>
+        </span>
+
+        <br>
+
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-control">
+        <span class="help-block" *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
+          <span *ngIf="loginForm.get('password').errors['required']">
+            This field is required
+          </span>
+        </span>
+
+        <br>
+        <hr>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </div>
+  </div>
