@@ -7,12 +7,11 @@ import { HeaderComponent } from './header/header.component';
 import { ProductsComponent } from './products/products.component';
 import {AppRoutingModules} from './app-routing.modules';
 import {DropdownDirective} from './shared/dropdown.directive';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {WebService} from './shared/web.service';
 import { LoginComponent } from './login/login.component';
 import { BrandsComponent } from './brands/brands.component';
-import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -23,13 +22,13 @@ import { FooterComponent } from './footer/footer.component';
     DropdownDirective,
     LoginComponent,
     BrandsComponent,
-    FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModules,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     AppRoutingModules,

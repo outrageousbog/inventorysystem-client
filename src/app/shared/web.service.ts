@@ -11,7 +11,7 @@ export class WebService {
   constructor(private http: HttpClient) {}
 
   getProducts() {
-    return this.http.get<Product[]>(this.configURL + 'productList');
+    return this.http.get<Product[]>(this.configURL + 'products');
   }
 
   validateUser(user: UserService) {
@@ -22,7 +22,8 @@ export class WebService {
     return this.http.get<Brand[]>(this.configURL + 'brands');
   }
 
-  getBrandsByName(name: string) {
-    return this.http.get<Brand[]>(this.configURL + 'search/brand/' + name);
+  getBrandsByQuery(query: string) {
+
+    return this.http.get<Brand[]>(this.configURL + query);
   }
 }
