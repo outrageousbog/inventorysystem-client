@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Product} from './views/product';
-import {UserService} from './user.service';
-import {Brand} from './views/brand';
+import {Product} from '../views/product';
+import {UserService} from '../views/user.service';
+import {Brand} from '../views/brand';
+import {Data} from '@angular/router';
 
 @Injectable()
 export class WebService {

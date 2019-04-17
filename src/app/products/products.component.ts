@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Product} from '../shared/views/product';
-import {WebService} from '../shared/web.service';
+import {WebService} from '../shared/web/web.service';
 
 @Component({
   selector: 'app-products',

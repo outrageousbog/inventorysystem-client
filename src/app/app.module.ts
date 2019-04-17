@@ -6,12 +6,13 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { HeaderComponent } from './header/header.component';
 import { ProductsComponent } from './products/products.component';
 import {AppRoutingModules} from './app-routing.modules';
-import {DropdownDirective} from './shared/dropdown.directive';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {WebService} from './shared/web.service';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {WebService} from './shared/web/web.service';
 import { LoginComponent } from './login/login.component';
 import { BrandsComponent } from './brands/brands.component';
+import {TokenInterceptor} from './shared/authentication/interceptor/token-interceptor';
+import {AuthService} from './shared/authentication/auth.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,6 @@ import { BrandsComponent } from './brands/brands.component';
     MainPageComponent,
     HeaderComponent,
     ProductsComponent,
-    DropdownDirective,
     LoginComponent,
     BrandsComponent,
   ],
@@ -31,8 +31,14 @@ import { BrandsComponent } from './brands/brands.component';
     FormsModule
   ],
   providers: [
+    AuthService,
     AppRoutingModules,
-    WebService
+    WebService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

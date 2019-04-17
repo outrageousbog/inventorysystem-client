@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ErrorHandler, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Data, Router} from '@angular/router';
-import {WebService} from '../shared/web.service';
-import {UserService} from '../shared/user.service';
+import {WebService} from '../shared/web/web.service';
+import {UserService} from '../shared/views/user.service';
+import {pipe} from 'rxjs';
+import {catchError} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -22,20 +24,22 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    // let user = new UserService();
-    // user.username = this.loginForm.controls.username.value;
-    // user.password = this.loginForm.controls.password.value;
-    // this.web.validateUser(user)
-    //   .subscribe(
-    //     () => {
-    //       this.router.navigate(['/frontpage']);
-    //     },
-    //     (error: Data) => {
-    //       window.alert(error);
-    //     }
-    //   );
+    let user = new UserService();
+    user.username = this.loginForm.controls.username.value;
+    user.password = this.loginForm.controls.password.value;
+    this.web.validateUser(user)
+      .subscribe(
+        (data: Data) => {
+            localStorage.setItem(`token`, data.token);
+          console.log(data);
+          this.router.navigate(['/frontpage']);
+        },
+        (error: ErrorHandler) => {
+          console.log('An error occured: ' + pipe(error.handleError))
+        }
+      );
 
-    this.router.navigate(['/frontpage']);
+    // this.router.navigate(['/frontpage']);
     // console.log(new UserService(this.loginForm));
   }
 }

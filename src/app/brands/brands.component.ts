@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {WebService} from '../shared/web.service';
+import {WebService} from '../shared/web/web.service';
 import {Brand} from '../shared/views/brand';
 import {Data} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
