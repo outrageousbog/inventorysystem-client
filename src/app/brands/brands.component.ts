@@ -4,10 +4,11 @@ import {Brand} from '../shared/views/brand';
 import {Data} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {BrandSearchBuilder} from '../shared/search/brand-search.builder';
+import {PaginatorService} from '../shared/pages/paginator.service';
 @Component({
   selector: 'app-brands',
   templateUrl: './brands.component.html',
-  styleUrls: ['./brands.component.css']
+  styleUrls: ['./brands.component.css'],
 })
 export class BrandsComponent implements OnInit {
   protected brandList: Brand[];
@@ -15,11 +16,7 @@ export class BrandsComponent implements OnInit {
   searchComplete: boolean = false;
   brandSearchBuilder: BrandSearchBuilder;
   protected toShow: number = 10;
-  protected currentPage: number = 1;
-  protected pageList: number[];
-
-  previousButton: boolean = false;
-  nextButton: boolean = false;
+  pageService: PaginatorService;
 
  optionsToShow = [
     {name : "10", value: 10},
@@ -30,6 +27,7 @@ export class BrandsComponent implements OnInit {
   constructor(private webService: WebService) { }
 
   ngOnInit() {
+    this.pageService = new PaginatorService();
     this.brandSearch = new FormGroup({
       'search': new FormControl(null, [Validators.required])
     });
@@ -59,64 +57,16 @@ export class BrandsComponent implements OnInit {
         });
   }
 
-  showPagesFrom() {
-    return this.toShow*(this.currentPage-1);
-  }
-
-  showPagesTo() {
-    return this.toShow*(this.currentPage);
+  updatePages(newPage: number) {
+    this.pageService.setCurrentPage(newPage);
   }
 
   initPages () {
     if (this.brandList == null ) {
-      this.pageList = new Array(0)
+      this.pageService.initPages(0, this.toShow);
     }
     else {
-      this.pageList = this.fillArrayWithNumbers(Math.ceil(this.brandList.length / this.toShow));
-      console.log(this.pageList);
-      this.checkForButtonChanges(this.pageList[0]);
+      this.pageService.initPages(this.brandList.length, this.toShow);
     }
-  }
-
-  setCurrentPage(chosenPage: number) {
-
-    if (this.pageList.length > 5) {
-      if ((this.pageList.length - chosenPage) >= 2 || chosenPage <= 2) {
-        for (let i of this.pageList) {
-          this.pageList[i] = this.pageList[i] +1;
-        }
-      }
-      else {
-        this.currentPage = chosenPage;
-      }
-    }
-      this.currentPage = chosenPage;
-
-    this.checkForButtonChanges(chosenPage);
-  }
-
-  increasePage() {
-    this.setCurrentPage(this.currentPage+1);
-  }
-
-  decreasePage() {
-    this.setCurrentPage(this.currentPage-1);
-  }
-
-  fillArrayWithNumbers(length: number) {
-    var arr = Array.apply(null, Array(length));
-    return arr.map( function (x,i) {
-        return i;
-    })
-  }
-
-  private checkForButtonChanges(chosenPage: number) {
-    (chosenPage > 1)? this.previousButton = true : this.previousButton = false;
-    (chosenPage < this.pageList.length)? this.nextButton=true : this.nextButton = false;
-    // if (chosenPage < this.pageList.length) {
-    //   this.nextButton = true;
-    // } else if (chosenPage >= this.pageList.length) {
-    //   this.nextButton = false;
-    // }
   }
 }

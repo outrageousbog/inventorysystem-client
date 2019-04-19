@@ -25,6 +25,12 @@ export class WebService {
 
   getBrandsByQuery(query: string) {
 
-    return this.http.get<Brand[]>(this.configURL + query);
+    return this.http.get<Brand[]>(this.configURL + 'product/brands');
+    // return this.http.get<Brand[]>(this.configURL + 'product/' + query);
+  }
+
+  getProductsByQuery(query: string) {
+    // return this.http.get<Product[]>(this.configURL + query);
+    return this.http.get<Product[]>(this.configURL + 'product/product');
   }
 }
