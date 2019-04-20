@@ -1,11 +1,18 @@
 export class Product {
+  productID: string = '';
   productSKU: string = '';
   productName: string = '';
   productBrand: string = '';
   productPrice: string = '';
+  productVariableCost: string = '';
 
   setSku(sku: string) {
     this.productSKU = sku;
+    return this;
+  }
+
+  setID(ID: string) {
+    this.productID = ID;
     return this;
   }
 
@@ -21,6 +28,11 @@ export class Product {
 
   setPrice(price: string) {
     this.productPrice = price;
+    return this;
+  }
+
+  setVariableCosts(variableCosts: string) {
+    this.productVariableCost=variableCosts;
     return this;
   }
 

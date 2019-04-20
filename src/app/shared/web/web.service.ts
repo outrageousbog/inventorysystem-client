@@ -30,7 +30,11 @@ export class WebService {
   }
 
   getProductsByQuery(query: string) {
-    // return this.http.get<Product[]>(this.configURL + query);
-    return this.http.get<Product[]>(this.configURL + 'product/product');
+    return this.http.get<Product[]>(this.configURL + 'product/' + query);
+  }
+
+  getProduct(query: string) {
+    console.log(this.configURL + 'product/' + query);
+    return this.http.get<Product>(this.configURL + 'product/' + query);
   }
 }

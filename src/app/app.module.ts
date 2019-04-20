@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { BrandsComponent } from './brands/brands.component';
 import {TokenInterceptor} from './shared/authentication/interceptor/token-interceptor';
 import {AuthService} from './shared/authentication/auth.service';
+import { ProductInformationComponent } from './products/product-information/product-information.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {AuthService} from './shared/authentication/auth.service';
     ProductsComponent,
     LoginComponent,
     BrandsComponent,
+    ProductInformationComponent,
   ],
   imports: [
     BrowserModule,

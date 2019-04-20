@@ -1,7 +1,7 @@
 export class ProductSearchBuilder implements ISearch{
-  query: string;
-  private contains: string;
-  private orderBy: string;
+  query: string = '';
+  private contains: string = '';
+  private orderBy: string = '';
 
 
   setContains(keyToContain: string, name: string) {
@@ -14,7 +14,7 @@ export class ProductSearchBuilder implements ISearch{
   }
 
   build() {
-    this.query = `brands?${this.contains}${this.orderBy}`
+    this.query = `products?${this.contains}${this.orderBy}`;
     return this;
   }
 }

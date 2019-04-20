@@ -4,7 +4,7 @@ import {Product} from '../shared/views/product';
 import {WebService} from '../shared/web/web.service';
 import {ProductSearchBuilder} from '../shared/search/product-search.builder';
 import {Brand} from '../shared/views/brand';
-import {Data} from '@angular/router';
+import {Data, Router} from '@angular/router';
 import {PaginatorService} from '../shared/pages/paginator.service';
 
 @Component({
@@ -13,7 +13,7 @@ import {PaginatorService} from '../shared/pages/paginator.service';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  protected productList: Product[];
+  protected productList: Product[] = [null];
   protected productSearch: FormGroup;
   protected productSearchBuilder;
   pageService: PaginatorService;
@@ -27,7 +27,7 @@ export class ProductsComponent implements OnInit {
     {name : "50", value: 50},
   ];
 
-  constructor(private webService: WebService) { }
+  constructor(private webService: WebService, private router: Router) { }
 
   ngOnInit() {
     this.pageService = new PaginatorService();
@@ -49,6 +49,7 @@ export class ProductsComponent implements OnInit {
           this.productList = data.map(
             (product) => {
               return new Product()
+                .setID(product.productID)
                 .setBrand(product.productBrand)
                 .setName(product.productName)
                 .setPrice(product.productPrice)
@@ -75,5 +76,10 @@ export class ProductsComponent implements OnInit {
     else {
       this.pageService.initPages(this.productList.length, this.toShow);
     }
+  }
+
+  onProductClick(index: number) {
+    console.log(index);
+    this.router.navigate(['/products/'+index]);
   }
 }

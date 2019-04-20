@@ -2,16 +2,16 @@
 
 
   <form [formGroup]="productSearch" (ngSubmit)="onSubmit()">
-    <label for="search">Search for brands</label>
+    <label for="search">Search for products</label>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text">Brand</span>
+        <span class="input-group-text">Name</span>
       </div>
       <input type="text"
              id="search"
              class="form-control"
              formControlName="search"
-             placeholder="ferrari">
+             placeholder="Model X">
       <div class="input-group-append">
         <button class="input-group-append btn btn-primary" type="submit">Search</button>
       </div>
@@ -34,8 +34,8 @@
 
   <nav aria-label="Paginator">
     <ul class="pagination">
-      <li class="page-item" *ngIf="pageService.previousButton; else previousButtonDisabled" style="cursor: pointer"><a class="page-link" (click)="updatePages(pageService.currentPage - 1)">Previous</a></li>
-
+      <li class="page-item" *ngIf="pageService.previousButton; else previousButtonDisabled" style="cursor: pointer">
+        <a class="page-link" (click)="updatePages(pageService.currentPage - 1)">Previous</a></li>
       <li class="page-item" style="cursor: pointer"
           *ngFor="let page of pageService.pageList; let i = index">
         <a class="page-link" *ngIf="(page) !== pageService.currentPage; else SelectedPageItem" (click)="updatePages(page)">
@@ -57,7 +57,7 @@
     </tr>
     </thead>
     <tbody *ngIf="searchComplete">
-    <tr *ngFor="let product of productList | slice:pageService.showPagesFrom():pageService.showPagesTo(); let i=index">
+    <tr *ngFor="let product of productList | slice:pageService.showPagesFrom():pageService.showPagesTo(); let i=index" (click)="onProductClick(product.productID)">
       <td>{{ product.productName }}</td>
       <td>{{ product.productBrand }}</td>
       <td>{{ product.productPrice }}</td>
