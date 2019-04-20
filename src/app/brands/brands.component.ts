@@ -18,7 +18,8 @@ export class BrandsComponent implements OnInit {
   protected toShow: number = 10;
   pageService: PaginatorService;
 
- optionsToShow = [
+  optionsToShow = [
+    {name : "5", value: 5},
     {name : "10", value: 10},
     {name : "25", value: 25},
     {name : "50", value: 50},

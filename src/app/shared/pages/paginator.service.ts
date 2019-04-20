@@ -61,4 +61,8 @@ export class PaginatorService {
     this.showPagesFrom();
     this.showPagesTo();
   }
+
+  setToShow(newToShow: number) {
+    this.initPages(this.amountProducts, newToShow)
+  }
 }
