@@ -46,7 +46,10 @@ export class BrandsComponent implements OnInit {
       .subscribe((data: Brand[]) => {
           this.brandList = data.map(
             (brand) => {
-              return new Brand(brand.brandID, brand.brandName);
+              return new Brand()
+                .setId(brand.brandID)
+                .setName(brand.brandName)
+                .build();
             }
           );
           this.searchComplete = true;

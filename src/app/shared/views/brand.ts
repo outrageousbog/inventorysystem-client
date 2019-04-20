@@ -1,3 +1,18 @@
 export class Brand {
-  constructor(public brandID: number, public brandName: string) {}
+  public brandID: number;
+  public brandName: string;
+
+  setId(id:number) {
+    this.brandID = id;
+    return this;
+  }
+
+  setName(name: string) {
+    this.brandName = name;
+    return this;
+  }
+
+  build() {
+    return this;
+  }
 }
