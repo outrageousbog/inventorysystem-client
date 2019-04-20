@@ -1,28 +1,85 @@
-<div class="col-xl-12">
+<div class="d-flex justify-content-center">
+
 
   <form [formGroup]="productSearch" (ngSubmit)="onSubmit()">
-    <label for="search">Search for a product</label>
+    <label for="search">Search for brands</label>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text">Name</span>
+        <span class="input-group-text">Brand</span>
       </div>
       <input type="text"
              id="search"
              class="form-control"
-             formControlName="nameSearch"
+             formControlName="search"
              placeholder="ferrari">
       <div class="input-group-append">
         <button class="input-group-append btn btn-primary" type="submit">Search</button>
       </div>
     </div>
   </form>
-
-
-  <div class="row" *ngIf="searched">
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let product of productList; let i=index">
-        {{ product.productName }}, {{ product.productBrand }}
-      </li>
-    </ul>
-  </div>
 </div>
+
+<div class="d-flex justify-content-center">
+  <div class="row col-md-12">
+    <label class="d-inline-flex">
+      Show
+      <select [(ngModel)]="toShow" class="custom-select custom-select-sm w-50" (change)="pageService.setToShow(toShow)">
+        <option *ngFor="let option of optionsToShow">
+          {{ option.name }}
+        </option>
+      </select>
+      entries
+    </label>
+  </div>
+
+  <nav aria-label="Paginator">
+    <ul class="pagination">
+      <li class="page-item" *ngIf="pageService.previousButton; else previousButtonDisabled" style="cursor: pointer"><a class="page-link" (click)="updatePages(pageService.currentPage - 1)">Previous</a></li>
+
+      <li class="page-item" style="cursor: pointer"
+          *ngFor="let page of pageService.pageList; let i = index">
+        <a class="page-link" *ngIf="(page) !== pageService.currentPage; else SelectedPageItem" (click)="updatePages(page)">
+          {{ page + 1}}
+        </a>
+      </li>
+      <li class="page-item" *ngIf="pageService.nextButton; else nextButtonDisabled" style="cursor: pointer"><a class="page-link" (click)="updatePages(pageService.currentPage + 1)">Next</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="d-flex justify-content-center">
+  <table id="dtBasicExample" class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Price</th>
+      <th scope="col">SKU</th>
+    </tr>
+    </thead>
+    <tbody *ngIf="searchComplete">
+    <tr *ngFor="let product of productList | slice:pageService.showPagesFrom():pageService.showPagesTo(); let i=index">
+      <td>{{ product.productName }}</td>
+      <td>{{ product.productBrand }}</td>
+      <td>{{ product.productPrice }}</td>
+      <td>{{ product.productSKU }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #previousButtonDisabled>
+  <li class="page-item disabled"><a class="page-link">Previous</a></li>
+</ng-template>
+
+<ng-template #nextButtonDisabled>
+  <li class="page-item disabled"><a class="page-link">Next</a></li>
+</ng-template>
+
+<ng-template #SelectedPageItem>
+  <li class="page-item active">
+    <a class="page-link">
+      {{ pageService.currentPage + 1 }}
+    </a>
+  </li>
+</ng-template>
+

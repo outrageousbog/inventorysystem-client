@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Product} from '../shared/views/product';
 import {WebService} from '../shared/web/web.service';
+import {ProductSearchBuilder} from '../shared/search/product-search.builder';
+import {Brand} from '../shared/views/brand';
+import {Data} from '@angular/router';
+import {PaginatorService} from '../shared/pages/paginator.service';
 
 @Component({
   selector: 'app-products',
@@ -11,32 +15,65 @@ import {WebService} from '../shared/web/web.service';
 export class ProductsComponent implements OnInit {
   protected productList: Product[];
   protected productSearch: FormGroup;
-  protected searched: boolean = false;
+  protected productSearchBuilder;
+  pageService: PaginatorService;
+  private searchComplete: boolean = false;
+  protected toShow: number = 10;
+
+  optionsToShow = [
+    {name : "5", value: 5},
+    {name : "10", value: 10},
+    {name : "25", value: 25},
+    {name : "50", value: 50},
+  ];
 
   constructor(private webService: WebService) { }
 
   ngOnInit() {
+    this.pageService = new PaginatorService();
     this.productSearch = new FormGroup({
-      'nameSearch': new FormControl(null, [Validators.required])
-    })
+      'search': new FormControl(null, [Validators.required])
+    });
+    this.productSearchBuilder = new ProductSearchBuilder();
   }
 
   onSubmit() {
-    this.webService.getProducts()
-      .subscribe(
-        (data: Product[]) => {
+    this.searchForProducts();
+  }
+
+  private searchForProducts() {
+    this.productSearchBuilder.setContains('productName', this.productSearch.controls.search.value).build();
+    console.log(this.productSearchBuilder.query);
+    this.webService.getProductsByQuery(this.productSearchBuilder.query)
+      .subscribe((data: Product[]) => {
           this.productList = data.map(
             (product) => {
-              return new Product(product.productSKU, product.productName, product.productBrand, product.productPrice);
+              return new Product()
+                .setBrand(product.productBrand)
+                .setName(product.productName)
+                .setPrice(product.productPrice)
+                .setSku(product.productSKU)
+                .build();
             }
           );
-          console.log(this.productList);
-          this.searched = true;
-
+          this.searchComplete = true;
+          this.initPages();
         },
-        (error: Error) => {
-          console.log("Error occured: " + error);
-        }
-      );
+        (error: Data) => {
+          console.log(error);
+        });
+  }
+
+  updatePages(newPage: number) {
+    this.pageService.setCurrentPage(newPage);
+  }
+
+  private initPages() {
+    if (this.productList== null ) {
+      this.pageService.initPages(0, this.toShow);
+    }
+    else {
+      this.pageService.initPages(this.productList.length, this.toShow);
+    }
   }
 }

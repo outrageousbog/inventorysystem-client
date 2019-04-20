@@ -4,10 +4,11 @@ import {Brand} from '../shared/views/brand';
 import {Data} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {BrandSearchBuilder} from '../shared/search/brand-search.builder';
+import {PaginatorService} from '../shared/pages/paginator.service';
 @Component({
   selector: 'app-brands',
   templateUrl: './brands.component.html',
-  styleUrls: ['./brands.component.css']
+  styleUrls: ['./brands.component.css'],
 })
 export class BrandsComponent implements OnInit {
   protected brandList: Brand[];
@@ -15,16 +16,19 @@ export class BrandsComponent implements OnInit {
   searchComplete: boolean = false;
   brandSearchBuilder: BrandSearchBuilder;
   protected toShow: number = 10;
+  pageService: PaginatorService;
 
   optionsToShow = [
+    {name : "5", value: 5},
     {name : "10", value: 10},
     {name : "25", value: 25},
     {name : "50", value: 50},
-  ]
+  ];
 
   constructor(private webService: WebService) { }
 
   ngOnInit() {
+    this.pageService = new PaginatorService();
     this.brandSearch = new FormGroup({
       'search': new FormControl(null, [Validators.required])
     });
@@ -41,43 +45,32 @@ export class BrandsComponent implements OnInit {
     console.log(this.brandSearchBuilder.query);
     this.webService.getBrandsByQuery(this.brandSearchBuilder.query)
       .subscribe((data: Brand[]) => {
-          console.log(data);
           this.brandList = data.map(
             (brand) => {
-              return new Brand(brand.brandID, brand.brandName);
+              return new Brand()
+                .setId(brand.brandID)
+                .setName(brand.brandName)
+                .build();
             }
           );
           this.searchComplete = true;
+          this.initPages();
         },
         (error: Data) => {
           console.log(error);
         });
   }
 
-  private getAllBrands() {
-    this.webService.getBrands()
-      .subscribe((data: Brand[]) => {
-          console.log(data);
-          this.brandList = data.map(
-            (brand) => {
-              return new Brand(brand.brandID, brand.brandName);
-            }
-          );
-          this.searchComplete = true;
-        },
-        (error: Data) => {
-          console.log(error);
-        });
+  updatePages(newPage: number) {
+    this.pageService.setCurrentPage(newPage);
   }
 
-  setSort(toSort: number) {
-    switch (toSort) {
-      case 0: this.brandSearchBuilder.setOrderBy('brandName'); break;
-      case 1: this.brandSearchBuilder.setOrderBy('id'); break;
+  initPages () {
+    if (this.brandList == null ) {
+      this.pageService.initPages(0, this.toShow);
     }
-  }
-
-  setShowMax(value: string) {
-    this.toShow = +value;
+    else {
+      this.pageService.initPages(this.brandList.length, this.toShow);
+    }
   }
 }
