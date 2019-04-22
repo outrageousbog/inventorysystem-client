@@ -1,5 +1,8 @@
+import {JwtHelperService} from '@auth0/angular-jwt';
+
 export class AuthService {
   loggedIn = false;
+  jwtHelper = new JwtHelperService;
 
 
   public getToken() {
@@ -9,7 +12,11 @@ export class AuthService {
   isAuthenticated() {
     return new Promise(
       (resolve) => {
-        resolve(this.getToken().length > 1);
+        if(this.getToken() != null) {
+            resolve(this.isStillValid());
+        } else {
+          resolve(false);
+        }
       }
     );
   }
@@ -21,4 +28,9 @@ export class AuthService {
   login() {
     this.loggedIn = true;
   }
+
+  private isStillValid() {
+    return !this.jwtHelper.isTokenExpired(this.getToken());
+  }
+
 }

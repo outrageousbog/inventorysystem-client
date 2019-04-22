@@ -14,6 +14,8 @@ import { BrandsComponent } from './brands/brands.component';
 import {TokenInterceptor} from './shared/authentication/interceptor/token-interceptor';
 import {AuthService} from './shared/authentication/auth.service';
 import { ProductInformationComponent } from './products/product-information/product-information.component';
+import { CreateProductComponent } from './products/create-product/create-product.component';
+import {AuthGuard} from './shared/authentication/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { ProductInformationComponent } from './products/product-information/prod
     LoginComponent,
     BrandsComponent,
     ProductInformationComponent,
+    CreateProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +37,7 @@ import { ProductInformationComponent } from './products/product-information/prod
   ],
   providers: [
     AuthService,
+    AuthGuard,
     AppRoutingModules,
     WebService,
     {
