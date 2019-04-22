@@ -5,7 +5,7 @@ export class ProductSearchBuilder implements ISearch{
 
 
   setContains(keyToContain: string, name: string) {
-    this.orderBy = `$Filter=${keyToContain} eq '${name}'`;
+    this.orderBy = `$Filter=contains(${keyToContain}, '${name}')`;
     return this;
   }
   setOrderBy(name: string) {

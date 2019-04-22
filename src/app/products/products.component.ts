@@ -82,4 +82,8 @@ export class ProductsComponent implements OnInit {
     console.log(index);
     this.router.navigate(['/products/'+index]);
   }
+
+  onCreate() {
+    this.router.navigate(['/products/create']);
+  }
 }

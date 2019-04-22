@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {WebService} from '../../shared/web/web.service';
 import {Product} from '../../shared/views/product';
-import {ActivatedRoute, Data} from '@angular/router';
+import {ActivatedRoute, Data, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -15,12 +15,12 @@ export class ProductInformationComponent implements OnInit, OnDestroy {
   private id: number;
   protected isSearched: boolean = false;
 
-  constructor(private webService: WebService, private router: ActivatedRoute) {
+  constructor(private webService: WebService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
     this.product = new Product();
-    this.paramSub = this.router.params
+    this.paramSub = this.route.params
       .subscribe(params => {
         this.id = +params['id'];
         this.getProduct();
@@ -61,5 +61,21 @@ export class ProductInformationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.paramSub.unsubscribe();
+  }
+
+  deleteProduct() {
+    this.webService.deleteProduct(this.id)
+      .subscribe(
+        (data: Data) => {
+          console.log(data);
+        },
+        (error: Data) => {
+          console.log(error);
+        }
+      )
+  }
+
+  onBack() {
+    this.router.navigate(['../products']);
   }
 }
