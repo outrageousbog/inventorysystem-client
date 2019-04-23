@@ -13,8 +13,8 @@ const appRoutes: Routes = [
   {path: 'products', canActivate: [AuthGuard], component: ProductsComponent},
   {path: 'frontpage', canActivate: [AuthGuard], component: MainPageComponent},
   {path: 'brands', canActivate: [AuthGuard],component: BrandsComponent},
-  {path: 'products/:id', pathMatch: 'full', component: ProductInformationComponent},
   {path: 'products/create', component: CreateProductComponent},
+  {path: 'products/:id', pathMatch: 'full', component: ProductInformationComponent},
   {path: 'login', component: LoginComponent},
   {path: '**', canActivate: [AuthGuard], component: MainPageComponent}
 ];
