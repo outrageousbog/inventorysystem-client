@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Product} from '../shared/views/product';
+import {Product, ProductBuilder} from '../shared/views/product';
 import {WebService} from '../shared/web/web.service';
 import {ProductSearchBuilder} from '../shared/search/product-search.builder';
 import {Brand} from '../shared/views/brand';
@@ -48,12 +48,13 @@ export class ProductsComponent implements OnInit {
       .subscribe((data: Product[]) => {
           this.productList = data.map(
             (product) => {
-              return new Product()
-                .setID(product.productID)
-                .setBrand(product.productBrand)
-                .setName(product.productName)
-                .setPrice(product.productPrice)
-                .setSku(product.productSKU)
+              return new ProductBuilder()
+                .withID(product.productID)
+                .withName(product.productName)
+                .withPrice(product.productPrice)
+                .withSKU(product.productSKU)
+                .withVariableCosts(product.productVariableCost)
+                .withBrand(product.productBrand)
                 .build();
             }
           );

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {WebService} from '../shared/web/web.service';
-import {Brand} from '../shared/views/brand';
+import {Brand, BrandBuilder} from '../shared/views/brand';
 import {Data} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {BrandSearchBuilder} from '../shared/search/brand-search.builder';
@@ -47,9 +47,9 @@ export class BrandsComponent implements OnInit {
       .subscribe((data: Brand[]) => {
           this.brandList = data.map(
             (brand) => {
-              return new Brand()
-                .setId(brand.brandID)
-                .setName(brand.brandName)
+              return new BrandBuilder()
+                .withID(brand.brandID)
+                .withName(brand.brandName)
                 .build();
             }
           );

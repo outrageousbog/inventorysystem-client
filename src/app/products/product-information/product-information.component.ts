@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {WebService} from '../../shared/web/web.service';
-import {Product} from '../../shared/views/product';
+import {Product, ProductBuilder} from '../../shared/views/product';
 import {ActivatedRoute, Data, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 
@@ -38,13 +38,13 @@ export class ProductInformationComponent implements OnInit, OnDestroy {
           console.log(data);
           let tempProd: Product[] = data.map(
             (prod) => {
-              return new Product()
-                .setVariableCosts(prod.productVariableCost)
-                .setBrand(prod.productBrand)
-                .setName(prod.productName)
-                .setSku(prod.productSKU)
-                .setPrice(prod.productPrice)
-                .setID(prod.productID)
+              return new ProductBuilder()
+                .withVariableCosts(prod.productVariableCost)
+                .withBrand(prod.productBrand)
+                .withName(prod.productName)
+                .withSKU(prod.productSKU)
+                .withPrice(prod.productPrice)
+                .withID(prod.productID)
                 .build();
             }
           );

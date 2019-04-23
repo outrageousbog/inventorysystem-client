@@ -15,7 +15,8 @@ const appRoutes: Routes = [
   {path: 'brands', canActivate: [AuthGuard],component: BrandsComponent},
   {path: 'products/:id', pathMatch: 'full', component: ProductInformationComponent},
   {path: 'products/create', component: CreateProductComponent},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: '**', canActivate: [AuthGuard], component: MainPageComponent}
 ];
 
 @NgModule({

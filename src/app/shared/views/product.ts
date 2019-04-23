@@ -8,35 +8,63 @@ export class Product {
 
   setSku(sku: string) {
     this.productSKU = sku;
-    return this;
   }
 
   setID(ID: string) {
     this.productID = ID;
-    return this;
   }
 
   setName(name: string) {
     this.productName = name;
-    return this;
   }
 
   setBrand(brand: string) {
     this.productBrand = brand;
-    return this;
   }
 
   setPrice(price: string) {
     this.productPrice = price;
-    return this;
   }
 
   setVariableCosts(variableCosts: string) {
     this.productVariableCost=variableCosts;
+  }
+}
+
+export class ProductBuilder {
+  private product = new Product();
+
+  withID(id: string) {
+    this.product.setID(id);
+    return this;
+  }
+
+  withPrice(price: string) {
+    this.product.setPrice(price);
+    return this;
+  }
+
+  withName(name: string) {
+    this.product.setName(name);
+    return this;
+  }
+
+  withBrand(brand: string) {
+    this.product.setBrand(brand);
+    return this;
+  }
+
+  withVariableCosts(variableCosts: string) {
+    this.product.setVariableCosts(variableCosts);
+    return this;
+  }
+
+  withSKU(sku: string) {
+    this.product.setSku(sku);
     return this;
   }
 
   build() {
-    return this;
+    return this.product;
   }
 }

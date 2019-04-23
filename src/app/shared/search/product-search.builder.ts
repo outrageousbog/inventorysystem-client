@@ -1,7 +1,7 @@
-export class ProductSearchBuilder implements ISearch{
-  query: string = '';
-  private contains: string = '';
-  private orderBy: string = '';
+export class ProductSearchBuilder implements ISearch {
+  query = '';
+  private contains = '';
+  private orderBy = '';
 
 
   setContains(keyToContain: string, name: string) {

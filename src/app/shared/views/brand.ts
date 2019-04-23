@@ -1,18 +1,30 @@
 export class Brand {
-  public brandID: number;
+  public brandID: string;
   public brandName: string;
 
-  setId(id:number) {
+  setId(id: string) {
     this.brandID = id;
-    return this;
   }
 
   setName(name: string) {
     this.brandName = name;
+  }
+}
+
+export class BrandBuilder {
+  private brand = new Brand();
+
+  withID(id: string) {
+    this.brand.setId(id);
+    return this;
+  }
+
+  withName(name: string) {
+    this.brand.setName(name);
     return this;
   }
 
   build() {
-    return this;
+    return this.brand;
   }
 }
