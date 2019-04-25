@@ -7,12 +7,14 @@ import {BrandsComponent} from './brands/brands.component';
 import {ProductInformationComponent} from './products/product-information/product-information.component';
 import {CreateProductComponent} from './products/create-product/create-product.component';
 import {AuthGuard} from './shared/authentication/auth-guard.service';
+import {CreateBrandComponent} from './brands/create-brand/create-brand.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent, pathMatch:'full'},
   {path: 'products', canActivate: [AuthGuard], component: ProductsComponent},
   {path: 'frontpage', canActivate: [AuthGuard], component: MainPageComponent},
   {path: 'brands', canActivate: [AuthGuard],component: BrandsComponent},
+  {path: 'brands/create', canActivate: [AuthGuard],component: CreateBrandComponent},
   {path: 'products/create', component: CreateProductComponent},
   {path: 'products/:id', pathMatch: 'full', component: ProductInformationComponent},
   {path: 'login', component: LoginComponent},

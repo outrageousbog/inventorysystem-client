@@ -16,6 +16,7 @@ import {AuthService} from './shared/authentication/auth.service';
 import { ProductInformationComponent } from './products/product-information/product-information.component';
 import { CreateProductComponent } from './products/create-product/create-product.component';
 import {AuthGuard} from './shared/authentication/auth-guard.service';
+import { CreateBrandComponent } from './brands/create-brand/create-brand.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {AuthGuard} from './shared/authentication/auth-guard.service';
     BrandsComponent,
     ProductInformationComponent,
     CreateProductComponent,
+    CreateBrandComponent,
   ],
   imports: [
     BrowserModule,

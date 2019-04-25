@@ -1,0 +1,33 @@
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h2 class="card-title">Create brand</h2>
+    <form [formGroup]="brandForm" (ngSubmit)="onSubmit()">
+      <label for="brand">Name of brand:</label>
+      <input
+        type="text"
+        id="brand"
+        formControlName="brand"
+        placeholder="Apple"
+        class="form-control">
+      <span class="help-block" *ngIf="!brandForm.get('brand').valid && brandForm.get('brand').touched">
+          <span *ngIf="brandForm.get('brand').errors['required']">
+            This field is required
+          </span>
+        </span>
+
+      <br>
+      <hr>
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+    <div *ngIf="createComplete">
+      <br>
+      <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">
+          Success!
+        </h4>
+        Brand was succesfully created. <a class="close" (click)="onClose()">x</a>
+      </div>
+    </div>
+  </div>
+</div>
+

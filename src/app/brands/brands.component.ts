@@ -5,6 +5,7 @@ import {BrandSearchBuilder} from '../shared/search/brands/brand.search';
 import {PaginatorService} from '../shared/pages/paginator.service';
 import {SearchService} from '../shared/search/search.service';
 import {SearchTypes} from '../shared/search/search-types';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-brands',
@@ -27,7 +28,8 @@ export class BrandsComponent implements OnInit {
     {name : "50", value: 50},
   ];
 
-  constructor(private searchService: SearchService) { }
+  constructor(private searchService: SearchService,
+              private router: Router) {}
 
   ngOnInit() {
     this.brandSearch = new FormGroup({
@@ -70,5 +72,9 @@ export class BrandsComponent implements OnInit {
     else {
       this.pageService.initPages(this.brandList.length, this.toShow);
     }
+  }
+
+  onCreate() {
+    this.router.navigate(['/brands/create']);
   }
 }

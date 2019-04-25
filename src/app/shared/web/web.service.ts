@@ -42,4 +42,8 @@ export class WebService {
   deleteProduct(id: any) {
     return this.http.delete(this.configURL + 'product/' + id);
   }
+
+  createBrand(brand: Brand) {
+    return this.http.post(this.configURL + 'product/brands', brand);
+  }
 }
