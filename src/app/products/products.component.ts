@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Product, ProductBuilder} from '../shared/views/product';
-import {WebService} from '../shared/web/web.service';
-import {ProductSearchBuilder} from '../shared/search/product-search.builder';
-import {Brand} from '../shared/views/brand';
-import {Data, Router} from '@angular/router';
+import {Product} from '../shared/views/product';
+import {Router} from '@angular/router';
 import {PaginatorService} from '../shared/pages/paginator.service';
+import {ProductSearchBuilder} from '../shared/search/products/product.search';
+import {SearchService} from '../shared/search/search.service';
+import {SearchTypes} from '../shared/search/search-types';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css'],
+  providers: [SearchService],
 })
 export class ProductsComponent implements OnInit {
   protected productList: Product[] = [null];
@@ -27,7 +28,8 @@ export class ProductsComponent implements OnInit {
     {name : "50", value: 50},
   ];
 
-  constructor(private webService: WebService, private router: Router) { }
+  constructor(private router: Router,
+              private searchService: SearchService) { }
 
   ngOnInit() {
     this.pageService = new PaginatorService();
@@ -35,6 +37,15 @@ export class ProductsComponent implements OnInit {
       'search': new FormControl(null, [Validators.required])
     });
     this.productSearchBuilder = new ProductSearchBuilder();
+
+    this.searchService.productsSearchObs
+      .subscribe(
+        (data: Product[]) => {
+          this.productList = data;
+          this.searchComplete = true;
+          this.initPages();
+        }
+      )
   }
 
   onSubmit() {
@@ -42,28 +53,13 @@ export class ProductsComponent implements OnInit {
   }
 
   private searchForProducts() {
-    this.productSearchBuilder.setContains('productName', this.productSearch.controls.search.value).build();
-    console.log(this.productSearchBuilder.query);
-    this.webService.getProductsByQuery(this.productSearchBuilder.query)
-      .subscribe((data: Product[]) => {
-          this.productList = data.map(
-            (product) => {
-              return new ProductBuilder()
-                .withID(product.productID)
-                .withName(product.productName)
-                .withPrice(product.productPrice)
-                .withSKU(product.productSKU)
-                .withVariableCosts(product.productVariableCost)
-                .withBrand(product.productBrand)
-                .build();
-            }
-          );
-          this.searchComplete = true;
-          this.initPages();
-        },
-        (error: Data) => {
-          console.log(error);
-        });
+    let searchValue = this.productSearch.controls.search.value;
+    if (searchValue != null) {
+      this.productSearchBuilder.withContains('productName', this.productSearch.controls.search.value)
+    }
+    let searchQuery = this.productSearchBuilder.build();
+    console.log(searchQuery.query);
+    this.searchService.search(SearchTypes.Product, searchQuery.query);
   }
 
   updatePages(newPage: number) {

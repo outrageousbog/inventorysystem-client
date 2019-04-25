@@ -1,22 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import {WebService} from '../shared/web/web.service';
-import {Brand, BrandBuilder} from '../shared/views/brand';
-import {Data} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Brand} from '../shared/views/brand';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {BrandSearchBuilder} from '../shared/search/brand-search.builder';
+import {BrandSearchBuilder} from '../shared/search/brands/brand.search';
 import {PaginatorService} from '../shared/pages/paginator.service';
+import {SearchService} from '../shared/search/search.service';
+import {SearchTypes} from '../shared/search/search-types';
+
 @Component({
   selector: 'app-brands',
   templateUrl: './brands.component.html',
   styleUrls: ['./brands.component.css'],
+  providers: [SearchService]
 })
 export class BrandsComponent implements OnInit {
   protected brandList: Brand[];
   protected brandSearch: FormGroup;
   searchComplete: boolean = false;
-  brandSearchBuilder: BrandSearchBuilder;
+  brandSearchBuilder: BrandSearchBuilder = new BrandSearchBuilder()
   protected toShow: number = 10;
-  pageService: PaginatorService;
+  pageService: PaginatorService = new PaginatorService();
 
   optionsToShow = [
     {name : "5", value: 5},
@@ -25,14 +27,21 @@ export class BrandsComponent implements OnInit {
     {name : "50", value: 50},
   ];
 
-  constructor(private webService: WebService) { }
+  constructor(private searchService: SearchService) { }
 
   ngOnInit() {
-    this.pageService = new PaginatorService();
     this.brandSearch = new FormGroup({
       'search': new FormControl(null, [Validators.required])
     });
-    this.brandSearchBuilder = new BrandSearchBuilder()
+
+    this.searchService.brandsSearchObs
+      .subscribe(
+        (data: Brand[]) => {
+          this.brandList = data;
+          this.searchComplete = true;
+          this.initPages();
+        }
+      );
   }
 
   onSubmit() {
@@ -41,24 +50,13 @@ export class BrandsComponent implements OnInit {
   }
 
   private searchForBrands() {
-    this.brandSearchBuilder.setContains('brandName', this.brandSearch.controls.search.value).build();
-    console.log(this.brandSearchBuilder.query);
-    this.webService.getBrandsByQuery(this.brandSearchBuilder.query)
-      .subscribe((data: Brand[]) => {
-          this.brandList = data.map(
-            (brand) => {
-              return new BrandBuilder()
-                .withID(brand.brandID)
-                .withName(brand.brandName)
-                .build();
-            }
-          );
-          this.searchComplete = true;
-          this.initPages();
-        },
-        (error: Data) => {
-          console.log(error);
-        });
+    let searchValue = this.brandSearch.controls.search.value;
+    if (searchValue != null){
+      this.brandSearchBuilder.withContains('brandName', this.brandSearch.controls.search.value);
+    }
+    let searchQuery = this.brandSearchBuilder.build();
+    console.log(this.brandSearchBuilder.build());
+    this.searchService.search(SearchTypes.Brand, searchQuery.query);
   }
 
   updatePages(newPage: number) {
