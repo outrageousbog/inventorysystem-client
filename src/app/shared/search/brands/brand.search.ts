@@ -5,7 +5,7 @@ export class BrandSearch {
 
 
   setContains(keyToContain: string, name: string) {
-    this.orderBy = `$Filter=contains(${keyToContain}, '${name}')`;
+    this.orderBy = `$Filter=contains(${keyToContain}, '${name.toUpperCase()}')`;
   }
   setOrderBy(name: string) {
     this.contains = `$OrderBy=${name}&`;

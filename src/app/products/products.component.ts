@@ -16,8 +16,8 @@ import {SearchTypes} from '../shared/search/search-types';
 export class ProductsComponent implements OnInit {
   protected productList: Product[] = [null];
   protected productSearch: FormGroup;
-  protected productSearchBuilder;
-  pageService: PaginatorService;
+  protected productSearchBuilder = new ProductSearchBuilder();
+  pageService: PaginatorService = new PaginatorService();
   private searchComplete: boolean = false;
   protected toShow: number = 10;
 
@@ -32,11 +32,9 @@ export class ProductsComponent implements OnInit {
               private searchService: SearchService) { }
 
   ngOnInit() {
-    this.pageService = new PaginatorService();
     this.productSearch = new FormGroup({
       'search': new FormControl(null, [Validators.required])
     });
-    this.productSearchBuilder = new ProductSearchBuilder();
 
     this.searchService.productsSearchObs
       .subscribe(
