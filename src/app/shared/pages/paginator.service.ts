@@ -11,7 +11,7 @@ export class PaginatorService {
   pagesToShowInView: number = 5;
 
   showPagesTo() {
-    return this.toShow * (this.currentPage+1);
+    return this.toShow * (this.currentPage + 1);
   }
 
   showPagesFrom() {
@@ -32,28 +32,29 @@ export class PaginatorService {
     // }
     this.currentPage = chosenPage;
 
-   this.updateVariables();
+    this.updateVariables();
   }
 
   initPages(amountProducts: number, toShow: number) {
     this.amountProducts = amountProducts;
     this.toShow = toShow;
-     this.pageList = this.fillArrayWithNumbers(Math.ceil(this.amountProducts/this.toShow));
+    this.pageList = this.fillArrayWithNumbers(Math.ceil(this.amountProducts / this.toShow));
 
-     this.updateVariables();
+    this.updateVariables();
+    this.currentPage = 0;
     console.log(this.pageList);
   }
 
-  private  fillArrayWithNumbers(n: number) {
+  private fillArrayWithNumbers(n: number) {
     let arr = Array.apply(null, Array(n));
-    return arr.map( function (x,i) {
+    return arr.map(function (x, i) {
       return i;
-    })
+    });
   }
 
   checkForButtonChanges() {
-    (this.currentPage > 0)? this.previousButton = true : this.previousButton = false;
-    (this.currentPage < this.pageList.length-1)? this.nextButton=true : this.nextButton = false;
+    (this.currentPage > 0) ? this.previousButton = true : this.previousButton = false;
+    (this.currentPage < this.pageList.length - 1) ? this.nextButton = true : this.nextButton = false;
   }
 
   private updateVariables() {
@@ -63,6 +64,6 @@ export class PaginatorService {
   }
 
   setToShow(newToShow: number) {
-    this.initPages(this.amountProducts, newToShow)
+    this.initPages(this.amountProducts, newToShow);
   }
 }
