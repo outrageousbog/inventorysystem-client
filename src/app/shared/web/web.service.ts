@@ -7,7 +7,7 @@ import {Data} from '@angular/router';
 
 @Injectable()
 export class WebService {
-  private configURL = 'https://localhost:5001/api/';
+  private configURL = 'http://localhost:5000/api/';
 
   constructor(private http: HttpClient) {
   }

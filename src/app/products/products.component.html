@@ -20,7 +20,7 @@
 </div>
 
 <div class="d-flex justify-content-center">
-  <div class="row col-md-12">
+  <div class="row col-md-4">
     <label class="d-inline-flex">
       Show
       <select [(ngModel)]="toShow" class="custom-select custom-select-sm w-50" (change)="pageService.setToShow(toShow)">
@@ -47,24 +47,27 @@
   </nav>
 </div>
 <div class="d-flex justify-content-center">
-  <table id="dtBasicExample" class="table table-hover">
-    <thead class="thead-dark">
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Brand</th>
-      <th scope="col">Price</th>
-      <th scope="col">SKU</th>
-    </tr>
-    </thead>
-    <tbody *ngIf="searchComplete">
-    <tr *ngFor="let product of productList | slice:pageService.showPagesFrom():pageService.showPagesTo(); let i=index" (click)="onProductClick(product.productID)">
-      <td>{{ product.productName }}</td>
-      <td>{{ product.productBrand }}</td>
-      <td>{{ product.productPrice }}</td>
-      <td>{{ product.productSKU }}</td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="row col-md-6">
+    <table id="dtBasicExample" class="table table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Price</th>
+        <th scope="col">SKU</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="searchComplete">
+      <tr *ngFor="let product of productList | slice:pageService.showPagesFrom():pageService.showPagesTo(); let i=index" (click)="onProductClick(product.productID)">
+        <td>{{ product.productName }}</td>
+        <td>{{ product.productBrand }}</td>
+        <td>{{ product.productPrice }}</td>
+        <td>{{ product.productSKU }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
 
 <ng-template #previousButtonDisabled>
