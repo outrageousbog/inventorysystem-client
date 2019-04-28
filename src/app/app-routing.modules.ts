@@ -8,15 +8,42 @@ import {ProductInformationComponent} from './products/product-information/produc
 import {CreateProductComponent} from './products/create-product/create-product.component';
 import {AuthGuard} from './shared/authentication/auth-guard.service';
 import {CreateBrandComponent} from './brands/create-brand/create-brand.component';
+import {FrontPageComponent} from './front-page/front-page.component';
+import {ProductListComponent} from './products/product-list/product-list.component';
+import {BrandListComponent} from './brands/brand-list/brand-list.component';
 
 const appRoutes: Routes = [
-  {path: '', component: LoginComponent, pathMatch:'full'},
-  {path: 'products', canActivate: [AuthGuard], component: ProductsComponent},
-  {path: 'frontpage', canActivate: [AuthGuard], component: MainPageComponent},
-  {path: 'brands', canActivate: [AuthGuard],component: BrandsComponent},
-  {path: 'brands/create', canActivate: [AuthGuard],component: CreateBrandComponent},
-  {path: 'products/create', component: CreateProductComponent},
-  {path: 'products/:id', pathMatch: 'full', component: ProductInformationComponent},
+  {
+    path: '',
+    component: LoginComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'main',
+    component: FrontPageComponent,
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    children: [
+      {path: '', component: MainPageComponent},
+      {
+        path: 'products',
+        component: ProductsComponent,
+        children: [
+          {path: '', pathMatch: 'full', component: ProductListComponent},
+          {path: ':id', component: ProductInformationComponent},
+          {path: 'create', component: ProductsComponent}
+        ]
+      },
+      {
+        path: 'brands',
+        component: BrandsComponent,
+        children: [
+          {path: '', pathMatch: 'full', component: BrandListComponent},
+          {path: 'create', component: CreateBrandComponent},
+        ]
+      }
+    ]
+  },
   {path: 'login', component: LoginComponent},
   {path: '**', canActivate: [AuthGuard], component: MainPageComponent}
 ];

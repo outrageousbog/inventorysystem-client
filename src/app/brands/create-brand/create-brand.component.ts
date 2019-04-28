@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {WebService} from '../../shared/web/web.service';
 import {BrandBuilder} from '../../shared/views/brand';
 import {Router} from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-create-brand',
@@ -15,7 +16,7 @@ export class CreateBrandComponent implements OnInit {
   protected createComplete = false;
 
   constructor(private webService: WebService,
-              private router: Router) { }
+              private location: Location) {}
 
   ngOnInit() {
     this.brandForm = new FormGroup({
@@ -39,6 +40,6 @@ export class CreateBrandComponent implements OnInit {
   }
 
   onReturn() {
-    this.router.navigate(['/brands'])
+    this.location.back();
   }
 }

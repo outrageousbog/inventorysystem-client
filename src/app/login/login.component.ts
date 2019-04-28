@@ -5,6 +5,7 @@ import {WebService} from '../shared/web/web.service';
 import {UserService} from '../shared/views/user.service';
 import {pipe} from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import {AuthService} from '../shared/authentication/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ import {catchError} from 'rxjs/operators';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private router: Router, private web: WebService) { }
+  constructor(private router: Router, private web: WebService, private authService: AuthService) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit {
         (data: Data) => {
             localStorage.setItem(`token`, data.token);
           console.log(data);
-          this.router.navigate(['/frontpage']);
+          this.router.navigate(['/main']);
+          this.authService.login();
         },
         (error: ErrorHandler) => {
           console.log('An error occured: ' + pipe(error.handleError))

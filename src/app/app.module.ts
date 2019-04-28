@@ -17,6 +17,9 @@ import { ProductInformationComponent } from './products/product-information/prod
 import { CreateProductComponent } from './products/create-product/create-product.component';
 import {AuthGuard} from './shared/authentication/auth-guard.service';
 import { CreateBrandComponent } from './brands/create-brand/create-brand.component';
+import { FrontPageComponent } from './front-page/front-page.component';
+import { ProductListComponent } from './products/product-list/product-list.component';
+import { BrandListComponent } from './brands/brand-list/brand-list.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,9 @@ import { CreateBrandComponent } from './brands/create-brand/create-brand.compone
     ProductInformationComponent,
     CreateProductComponent,
     CreateBrandComponent,
+    FrontPageComponent,
+    ProductListComponent,
+    BrandListComponent,
   ],
   imports: [
     BrowserModule,

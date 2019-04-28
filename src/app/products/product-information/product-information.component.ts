@@ -3,6 +3,7 @@ import {WebService} from '../../shared/web/web.service';
 import {Product, ProductBuilder} from '../../shared/views/product';
 import {ActivatedRoute, Data, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-product-information',
@@ -15,7 +16,9 @@ export class ProductInformationComponent implements OnInit, OnDestroy {
   private id: number;
   protected isSearched: boolean = false;
 
-  constructor(private webService: WebService, private route: ActivatedRoute, private router: Router) {
+  constructor(private webService: WebService,
+              private route: ActivatedRoute,
+              private location: Location) {
   }
 
   ngOnInit() {
@@ -76,6 +79,6 @@ export class ProductInformationComponent implements OnInit, OnDestroy {
   }
 
   onBack() {
-    this.router.navigate(['../products']);
+    this.location.back();
   }
 }
