@@ -20,6 +20,8 @@ import { CreateBrandComponent } from './brands/create-brand/create-brand.compone
 import { FrontPageComponent } from './front-page/front-page.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { BrandListComponent } from './brands/brand-list/brand-list.component';
+import {ProductService} from './products/product-list/product-service';
+import {BrandService} from './brands/brand-list/brand-service';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { BrandListComponent } from './brands/brand-list/brand-list.component';
     AuthGuard,
     AppRoutingModules,
     WebService,
+    ProductService,
+    BrandService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

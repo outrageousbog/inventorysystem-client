@@ -8,25 +8,18 @@ import {ProductService} from './product-service';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
+  providers: [PaginatorService]
 })
 export class ProductListComponent implements OnInit {
   protected productList: Product[] = [null];
   protected productSearch: FormGroup;
-  pageService: PaginatorService = new PaginatorService();
   private searchComplete: boolean = false;
-  protected toShow: number = 10;
-
-  optionsToShow = [
-    {name : "5", value: 5},
-    {name : "10", value: 10},
-    {name : "25", value: 25},
-    {name : "50", value: 50},
-  ];
 
   constructor(private router: Router,
               private productService: ProductService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private pageService: PaginatorService) { }
 
   ngOnInit() {
     this.productSearch = new FormGroup({
@@ -34,6 +27,7 @@ export class ProductListComponent implements OnInit {
     });
 
     this.productList = this.productService.getProductsArray();
+    this.productList.length > 0 ? this.searchComplete = true : this.searchComplete = false;
 
     this.productService.productsSearchObs
       .subscribe(
@@ -59,10 +53,10 @@ export class ProductListComponent implements OnInit {
 
   private initPages() {
     if (this.productList== null ) {
-      this.pageService.initPages(0, this.toShow);
+      this.pageService.initPages(0);
     }
     else {
-      this.pageService.initPages(this.productList.length, this.toShow);
+      this.pageService.initPages(this.productList.length);
     }
   }
 

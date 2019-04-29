@@ -8,7 +8,7 @@ import {Data} from '@angular/router';
 @Injectable()
 export class ProductService {
   productsSearchObs = new Subject();
-  productsArray: Product[] = [new Product(), new Product()];
+  productsArray: Product[] = [];
   private productSearchBuilder = new ProductSearchBuilder();
   constructor(private webService: WebService) {}
 

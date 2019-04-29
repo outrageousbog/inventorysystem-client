@@ -6,9 +6,16 @@ export class PaginatorService {
   currentPage: number = 0;
   previousButton: boolean = false;
   nextButton: boolean = false;
-  toShow: number = 10;
   amountProducts: number = 0;
   pagesToShowInView: number = 5;
+   toShow: number = 10;
+
+  optionsToShow = [
+    {name : "5", value: 5},
+    {name : "10", value: 10},
+    {name : "25", value: 25},
+    {name : "50", value: 50},
+  ];
 
   showPagesTo() {
     return this.toShow * (this.currentPage + 1);
@@ -35,9 +42,8 @@ export class PaginatorService {
     this.updateVariables();
   }
 
-  initPages(amountProducts: number, toShow: number) {
+  initPages(amountProducts: number) {
     this.amountProducts = amountProducts;
-    this.toShow = toShow;
     this.pageList = this.fillArrayWithNumbers(Math.ceil(this.amountProducts / this.toShow));
 
     this.updateVariables();
@@ -63,7 +69,7 @@ export class PaginatorService {
     this.showPagesTo();
   }
 
-  setToShow(newToShow: number) {
-    this.initPages(this.amountProducts, newToShow);
+  setToShow() {
+    this.initPages(this.amountProducts);
   }
 }

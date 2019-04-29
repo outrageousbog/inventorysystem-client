@@ -9,30 +9,26 @@ import {BrandService} from './brand-service';
   selector: 'app-brand-list',
   templateUrl: './brand-list.component.html',
   styleUrls: ['./brand-list.component.css'],
+  providers: [PaginatorService]
 })
 export class BrandListComponent implements OnInit {
 
   protected brandList: Brand[];
   protected brandSearch: FormGroup;
   searchComplete: boolean = false;
-  protected toShow: number = 10;
-  pageService: PaginatorService = new PaginatorService();
-
-  optionsToShow = [
-    {name : "5", value: 5},
-    {name : "10", value: 10},
-    {name : "25", value: 25},
-    {name : "50", value: 50},
-  ];
 
   constructor(private brandService: BrandService,
               private router: Router,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute,
+              private pageService: PaginatorService) {}
 
   ngOnInit() {
     this.brandSearch = new FormGroup({
       'search': new FormControl(null, [Validators.required])
     });
+
+    this.brandList = this.brandService.getBrandsList();
+    this.brandList.length > 0 ? this.searchComplete = true : this.searchComplete = false;
 
     this.brandService.brandsSearchObs
       .subscribe(
@@ -59,10 +55,10 @@ export class BrandListComponent implements OnInit {
 
   initPages () {
     if (this.brandList == null ) {
-      this.pageService.initPages(0, this.toShow);
+      this.pageService.initPages(0);
     }
     else {
-      this.pageService.initPages(this.brandList.length, this.toShow);
+      this.pageService.initPages(this.brandList.length);
     }
   }
 

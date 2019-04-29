@@ -22,8 +22,8 @@
   <div class="row col-md-4">
     <label class="d-inline-flex">
       Show
-      <select [(ngModel)]="toShow" class="custom-select custom-select-sm w-50" (change)="pageService.setToShow(toShow)">
-        <option *ngFor="let option of optionsToShow">
+      <select [(ngModel)]="pageService.toShow" class="custom-select custom-select-sm w-50" (change)="pageService.setToShow()">
+        <option *ngFor="let option of pageService.optionsToShow">
           {{ option.name }}
         </option>
       </select>
