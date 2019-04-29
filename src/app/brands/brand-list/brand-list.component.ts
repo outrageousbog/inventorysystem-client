@@ -1,23 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Brand} from '../../shared/views/brand';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {BrandSearchBuilder} from '../../shared/search/brands/brand.search';
 import {PaginatorService} from '../../shared/pages/paginator.service';
-import {SearchService} from '../../shared/search/search.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SearchTypes} from '../../shared/search/search-types';
+import {BrandService} from './brand-service';
 
 @Component({
   selector: 'app-brand-list',
   templateUrl: './brand-list.component.html',
-  styleUrls: ['./brand-list.component.css']
+  styleUrls: ['./brand-list.component.css'],
 })
 export class BrandListComponent implements OnInit {
 
   protected brandList: Brand[];
   protected brandSearch: FormGroup;
   searchComplete: boolean = false;
-  brandSearchBuilder: BrandSearchBuilder = new BrandSearchBuilder()
   protected toShow: number = 10;
   pageService: PaginatorService = new PaginatorService();
 
@@ -28,7 +25,7 @@ export class BrandListComponent implements OnInit {
     {name : "50", value: 50},
   ];
 
-  constructor(private searchService: SearchService,
+  constructor(private brandService: BrandService,
               private router: Router,
               private route: ActivatedRoute) {}
 
@@ -37,7 +34,7 @@ export class BrandListComponent implements OnInit {
       'search': new FormControl(null, [Validators.required])
     });
 
-    this.searchService.brandsSearchObs
+    this.brandService.brandsSearchObs
       .subscribe(
         (data: Brand[]) => {
           this.brandList = data;
@@ -53,13 +50,7 @@ export class BrandListComponent implements OnInit {
   }
 
   private searchForBrands() {
-    let searchValue = this.brandSearch.controls.search.value;
-    if (searchValue != null){
-      this.brandSearchBuilder.withContains('brandName', this.brandSearch.controls.search.value);
-    }
-    let searchQuery = this.brandSearchBuilder.build();
-    console.log(this.brandSearchBuilder.build());
-    this.searchService.search(SearchTypes.Brand, searchQuery.query);
+    this.brandService.search(this.brandSearch.controls.search.value);
   }
 
   updatePages(newPage: number) {

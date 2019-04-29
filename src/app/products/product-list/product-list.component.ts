@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Product} from '../../shared/views/product';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ProductSearchBuilder} from '../../shared/search/products/product.search';
 import {PaginatorService} from '../../shared/pages/paginator.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SearchService} from '../../shared/search/search.service';
-import {SearchTypes} from '../../shared/search/search-types';
+import {ProductService} from './product-service';
 
 @Component({
   selector: 'app-product-list',
@@ -15,7 +13,6 @@ import {SearchTypes} from '../../shared/search/search-types';
 export class ProductListComponent implements OnInit {
   protected productList: Product[] = [null];
   protected productSearch: FormGroup;
-  protected productSearchBuilder = new ProductSearchBuilder();
   pageService: PaginatorService = new PaginatorService();
   private searchComplete: boolean = false;
   protected toShow: number = 10;
@@ -28,7 +25,7 @@ export class ProductListComponent implements OnInit {
   ];
 
   constructor(private router: Router,
-              private searchService: SearchService,
+              private productService: ProductService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -36,7 +33,9 @@ export class ProductListComponent implements OnInit {
       'search': new FormControl(null, [Validators.required])
     });
 
-    this.searchService.productsSearchObs
+    this.productList = this.productService.getProductsArray();
+
+    this.productService.productsSearchObs
       .subscribe(
         (data: Product[]) => {
           this.productList = data;
@@ -51,13 +50,7 @@ export class ProductListComponent implements OnInit {
   }
 
   private searchForProducts() {
-    let searchValue = this.productSearch.controls.search.value;
-    if (searchValue != null) {
-      this.productSearchBuilder.withContains('productName', this.productSearch.controls.search.value)
-    }
-    let searchQuery = this.productSearchBuilder.build();
-    console.log(searchQuery.query);
-    this.searchService.search(SearchTypes.Product, searchQuery.query);
+    this.productService.search(this.productSearch.controls.search.value);
   }
 
   updatePages(newPage: number) {

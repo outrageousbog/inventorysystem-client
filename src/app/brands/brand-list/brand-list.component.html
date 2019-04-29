@@ -1,5 +1,4 @@
 <div class="d-flex justify-content-center">
-  <button class="btn btn-success" (click)="onCreate()">Create</button>
 
   <form [formGroup]="brandSearch" (ngSubmit)="onSubmit()">
     <label for="search">Search for brands</label>
@@ -67,6 +66,7 @@
       </tr>
       </tbody>
     </table>
+    <button class="btn btn-success" (click)="onCreate()">Create</button>
   </div>
 </div>
 <ng-template #nextButtonDisabled>
