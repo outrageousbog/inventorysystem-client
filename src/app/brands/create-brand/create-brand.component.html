@@ -18,7 +18,7 @@
 
           <br>
           <hr>
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="submit" [disabled]="!brandForm.valid" class="btn btn-primary">Create</button>
         </form>
         <div *ngIf="createComplete">
           <br>

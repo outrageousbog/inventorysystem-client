@@ -56,11 +56,11 @@
       </tr>
       </thead>
       <tbody *ngIf="searchComplete">
-      <tr *ngFor="let product of productList | slice:pageService.showPagesFrom():pageService.showPagesTo(); let i=index" (click)="onProductClick(product.productID)">
-        <td>{{ product.productName }}</td>
-        <td>{{ product.productBrand }}</td>
-        <td>{{ product.productPrice }}</td>
-        <td>{{ product.productSKU }}</td>
+      <tr *ngFor="let product of productList | slice:pageService.showPagesFrom():pageService.showPagesTo(); let i=index" (click)="onProductClick(product.productID)" style="cursor:pointer;">
+        <td>{{ product.productName || null }}</td>
+        <td>{{ product.productBrand || null }}</td>
+        <td>{{ product.productPrice || null }}</td>
+        <td>{{ product.productSKU || null }}</td>
       </tr>
       </tbody>
     </table>

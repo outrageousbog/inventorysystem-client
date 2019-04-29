@@ -11,6 +11,7 @@ import {CreateBrandComponent} from './brands/create-brand/create-brand.component
 import {FrontPageComponent} from './front-page/front-page.component';
 import {ProductListComponent} from './products/product-list/product-list.component';
 import {BrandListComponent} from './brands/brand-list/brand-list.component';
+import {ErrorPageComponent} from './error-page/error-page.component';
 
 const appRoutes: Routes = [
   {
@@ -31,7 +32,8 @@ const appRoutes: Routes = [
         children: [
           {path: '', pathMatch: 'full', component: ProductListComponent},
           {path: ':id', component: ProductInformationComponent},
-          {path: 'create', component: ProductsComponent}
+          {path: 'create', component: ProductsComponent},
+          {path: '**', component: ErrorPageComponent},
         ]
       },
       {
@@ -40,12 +42,13 @@ const appRoutes: Routes = [
         children: [
           {path: '', pathMatch: 'full', component: BrandListComponent},
           {path: 'create', component: CreateBrandComponent},
+          {path: '**', component: ErrorPageComponent},
         ]
       }
     ]
   },
   {path: 'login', component: LoginComponent},
-  {path: '**', canActivate: [AuthGuard], component: MainPageComponent}
+  {path: '**', canActivate: [AuthGuard], component: ErrorPageComponent}
 ];
 
 @NgModule({

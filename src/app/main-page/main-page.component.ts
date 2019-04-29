@@ -8,17 +8,16 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor(private router: Router,
-              private route: ActivatedRoute) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   onProductsClick() {
-    this.router.navigate(['products'], {relativeTo: this.route});
+    this.router.navigate(['/main/products'], );
   }
 
   onBrandsClick() {
-    this.router.navigate(['brands'], {relativeTo: this.route});
+    this.router.navigate(['/main/brands'], );
   }
 }

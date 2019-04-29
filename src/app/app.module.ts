@@ -22,6 +22,7 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { BrandListComponent } from './brands/brand-list/brand-list.component';
 import {ProductService} from './products/product-list/product-service';
 import {BrandService} from './brands/brand-list/brand-service';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {BrandService} from './brands/brand-list/brand-service';
     FrontPageComponent,
     ProductListComponent,
     BrandListComponent,
+    ErrorPageComponent,
   ],
   imports: [
     BrowserModule,

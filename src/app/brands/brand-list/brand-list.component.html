@@ -61,8 +61,8 @@
       </thead>
       <tbody *ngIf="searchComplete">
       <tr *ngFor="let brand of brandList | slice:pageService.showPagesFrom():pageService.showPagesTo(); let i=index">
-        <td>{{ brand.brandName }}</td>
-        <td>{{ brand.brandID }}</td>
+        <td>{{ brand.brandName || null}}</td>
+        <td>{{ brand.brandID || null}}</td>
       </tr>
       </tbody>
     </table>
