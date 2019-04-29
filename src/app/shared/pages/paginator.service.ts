@@ -48,7 +48,6 @@ export class PaginatorService {
 
     this.updateVariables();
     this.currentPage = 0;
-    console.log(this.pageList);
   }
 
   private fillArrayWithNumbers(n: number) {

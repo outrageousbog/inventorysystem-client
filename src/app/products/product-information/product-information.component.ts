@@ -16,17 +16,19 @@ export class ProductInformationComponent implements OnInit {
   private id: number;
   protected isSearched: boolean = false;
 
-  constructor(private webService: WebService,
+  constructor(private productService: ProductService,
               private route: ActivatedRoute,
-              private location: Location) {
+              private location: Location,
+              private webService: WebService) {
   }
 
   ngOnInit() {
+    console.log('is loaded');
     this.route.data
       .subscribe(
         (data: Data) => {
-          console.log(data['product']);
-          this.product = data['product'];
+          let productObject = data['product'];
+          this.product = this.productService.getProductFromJson(productObject);
         }
       );
   }
@@ -48,4 +50,5 @@ export class ProductInformationComponent implements OnInit {
   onBack() {
     this.location.back();
   }
+
 }
