@@ -27,7 +27,12 @@ export class ProductListComponent implements OnInit {
     });
 
     this.productList = this.productService.getProductsArray();
-    this.productList.length > 0 ? this.searchComplete = true : this.searchComplete = false;
+    if (this.productList.length > 0) {
+      this.searchComplete = true;
+      this.initPages();
+    } else {
+      this.searchComplete = false;
+    }
 
     this.productService.productsSearchObs
       .subscribe(

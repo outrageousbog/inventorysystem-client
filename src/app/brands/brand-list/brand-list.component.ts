@@ -28,7 +28,12 @@ export class BrandListComponent implements OnInit {
     });
 
     this.brandList = this.brandService.getBrandsList();
-    this.brandList.length > 0 ? this.searchComplete = true : this.searchComplete = false;
+    if (this.brandList.length > 0) {
+      this.searchComplete = true;
+      this.initPages();
+    } else {
+      this.searchComplete = false;
+    }
 
     this.brandService.brandsSearchObs
       .subscribe(
