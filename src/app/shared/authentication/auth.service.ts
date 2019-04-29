@@ -21,7 +21,12 @@ export class AuthService {
     );
   }
 
+  private removeToken() {
+    localStorage.removeItem(`token`);
+  }
+
   logout() {
+    this.removeToken();
     this.loggedIn = false;
   }
 

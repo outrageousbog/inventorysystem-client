@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from '../shared/authentication/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -18,10 +20,15 @@ export class HeaderComponent implements OnInit {
   }
 
   onProductsClick() {
-    this.router.navigate(['products'], {relativeTo: this.route})
+    this.router.navigate(['/main/products']);
   }
 
   onBrandsClick() {
-    this.router.navigate(['brands'], {relativeTo: this.route})
+    this.router.navigate(['/main/brands']);
+  }
+
+  onLogout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
