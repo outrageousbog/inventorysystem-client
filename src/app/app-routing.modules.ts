@@ -12,6 +12,7 @@ import {FrontPageComponent} from './front-page/front-page.component';
 import {ProductListComponent} from './products/product-list/product-list.component';
 import {BrandListComponent} from './brands/brand-list/brand-list.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
+import {ProductResolver} from './products/product-information/product-resolver';
 
 const appRoutes: Routes = [
   {
@@ -31,7 +32,7 @@ const appRoutes: Routes = [
         component: ProductsComponent,
         children: [
           {path: '', pathMatch: 'full', component: ProductListComponent},
-          {path: ':id', component: ProductInformationComponent},
+          {path: ':id', component: ProductInformationComponent, resolve: {product: ProductResolver}},
           {path: 'create', component: ProductsComponent},
           {path: '**', component: ErrorPageComponent},
         ]

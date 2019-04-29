@@ -23,6 +23,7 @@ import { BrandListComponent } from './brands/brand-list/brand-list.component';
 import {ProductService} from './products/product-list/product-service';
 import {BrandService} from './brands/brand-list/brand-service';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import {ProductResolver} from './products/product-information/product-resolver';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     WebService,
     ProductService,
     BrandService,
+    ProductResolver,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

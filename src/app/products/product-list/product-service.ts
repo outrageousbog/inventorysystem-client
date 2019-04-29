@@ -8,6 +8,7 @@ import {Data} from '@angular/router';
 @Injectable()
 export class ProductService {
   productsSearchObs = new Subject();
+  private product = new Product();
   productsArray: Product[] = [];
   private productSearchBuilder = new ProductSearchBuilder();
   constructor(private webService: WebService) {}
@@ -45,5 +46,37 @@ export class ProductService {
     let searchQuery = this.productSearchBuilder.build();
     console.log(searchQuery.query);
     this.searchProducts(searchQuery.query);
+  }
+
+  getProduct(id: number) {
+    /**
+     * Receives object array from API, converts the object at index 0 (there will only be 1 product with the unique ID) to
+     * product object
+     */
+    this.webService.getProductsByQuery(`?$filter=productID eq ${id}`)
+      .subscribe(
+        (data: Product[]) => {
+          console.log(data);
+          let tempProd: Product[] = data.map(
+            (prod) => {
+              return new ProductBuilder()
+                .withVariableCosts(prod.productVariableCost)
+                .withBrand(prod.productBrand)
+                .withName(prod.productName)
+                .withSKU(prod.productSKU)
+                .withPrice(prod.productPrice)
+                .withID(prod.productID)
+                .build();
+            }
+          );
+          //CONVERTS TO OBJECT
+          this.product =  tempProd[0];
+        },
+        (error: Data) => {
+          console.log(error);
+        }
+      );
+    console.log(this.product);
+    return this.product;
   }
 }

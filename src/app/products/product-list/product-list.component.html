@@ -53,6 +53,7 @@
         <th scope="col">Brand</th>
         <th scope="col">Price</th>
         <th scope="col">SKU</th>
+        <th scope="col">ID</th>
       </tr>
       </thead>
       <tbody *ngIf="searchComplete">
@@ -61,6 +62,7 @@
         <td>{{ product.productBrand || null }}</td>
         <td>{{ product.productPrice || null }}</td>
         <td>{{ product.productSKU || null }}</td>
+        <td>{{ product.productID || null }}</td>
       </tr>
       </tbody>
     </table>
