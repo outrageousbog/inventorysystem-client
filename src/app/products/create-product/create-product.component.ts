@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CreateProductService} from './create-product.service';
 import {Brand} from '../../shared/views/brand';
 import {Material} from '../../shared/views/material';
@@ -19,14 +19,14 @@ export class CreateProductComponent implements OnInit {
 
   ngOnInit() {
     this.productForm = new FormGroup({
-      productSKU: new FormControl(12345678),
-      productName: new FormControl('Eris E5'),
-      productBrand: new FormControl('Presonus'),
-      productMaterialsID: new FormControl(4),
-      productPrice: new FormControl(2000),
-      productVariableCost: new FormControl(1500),
-      productStartFactor: new FormControl(400),
-      productGrowthFactor: new FormControl(20)
+      productSKU: new FormControl(12345678, [Validators.required]),
+      productName: new FormControl('Eris E5',[Validators.required]),
+      productBrand: new FormControl('Presonus',[Validators.required]),
+      productMaterialsID: new FormControl(4,[Validators.required]),
+      productPrice: new FormControl(2000,[Validators.required]),
+      productVariableCost: new FormControl(1500,[Validators.required]),
+      productStartFactor: new FormControl(400,[Validators.required]),
+      productGrowthFactor: new FormControl(20,[Validators.required])
     });
 
     this.createService.materialSubject
