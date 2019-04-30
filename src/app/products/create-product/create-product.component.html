@@ -1,3 +1,66 @@
-<p>
-  create-product works!
-</p>
+<div class="d-flex justify-content-center">
+  <form [formGroup]="productForm"
+        (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="col">
+        <label for="name">Name</label>
+        <input formControlName="productName"
+               type="text"
+               id="name"
+               class="form-control">
+      </div>
+      <div class="col">
+        <label for="brand">Brand</label>
+        <select class="form-control"
+                id="brand"
+                formControlName="productBrand">
+          <option *ngFor="let brand of brandList; let i = index">{{ brand.brandName }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col">
+      <label for="materialsID">Materials</label>
+      <select class="form-control"
+              id="materialsID"
+              formControlName="productMaterialsID">
+        <option *ngFor="let material of materialList; let i = index" [value]="material.materialID"> {{ material.materialName }}</option>
+      </select>
+    </div>
+    <div class="col">
+      <label for="materialsID">SKU</label>
+      <input formControlName="productSKU"
+             type="number"
+             id="SKU"
+             class="form-control">
+    </div>
+    <div class="col">
+      <label for="materialsID">Price</label>
+      <input formControlName="productPrice"
+             type="number"
+             id="price"
+             class="form-control">
+    </div>
+    <div class="col">
+      <label for="materialsID">Variable Costs</label>
+      <input formControlName="productVariableCost"
+             type="number"
+             id="variableCost"
+             class="form-control">
+    </div>
+    <div class="col">
+      <label for="materialsID">Start Factor</label>
+      <input formControlName="productStartFactor"
+             type="number"
+             id="startFactor"
+             class="form-control">
+    </div>
+    <div class="col">
+      <label for="materialsID">Growth Factor</label>
+      <input formControlName="productGrowthFactor"
+             type="number"
+             id="growthFactor"
+             class="form-control">
+    </div>
+    <button class="btn btn-success" type="submit">Create</button>
+  </form>
+</div>

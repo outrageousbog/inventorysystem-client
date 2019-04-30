@@ -32,8 +32,8 @@ const appRoutes: Routes = [
         component: ProductsComponent,
         children: [
           {path: '', pathMatch: 'full', component: ProductListComponent},
+          {path: 'create', component: CreateProductComponent},
           {path: ':id', component: ProductInformationComponent,resolve: {product: ProductResolver}},
-          {path: 'create', component: ProductsComponent},
           {path: '**', component: ErrorPageComponent},
         ]
       },

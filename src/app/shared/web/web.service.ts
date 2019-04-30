@@ -4,6 +4,8 @@ import {Product} from '../views/product';
 import {UserService} from '../views/user.service';
 import {Brand} from '../views/brand';
 import {Data} from '@angular/router';
+import {Material} from '../views/material';
+import {FormGroup} from '@angular/forms';
 
 @Injectable()
 export class WebService {
@@ -21,12 +23,16 @@ export class WebService {
   }
 
   getBrands() {
-    return this.http.get<Brand[]>(this.configURL + 'brands');
+    return this.http.get<Brand[]>(this.configURL + 'product/brands?$orderby=brandname');
   }
 
   getBrandsByQuery(query: string) {
     console.log(this.configURL + 'product/' + query);
     return this.http.get<Brand[]>(this.configURL + 'product/' + query);
+  }
+
+  getMaterials() {
+    return this.http.get<Material[]>(this.configURL + 'material?$orderby=materialname');
   }
 
   getProductsByQuery(query: string) {
@@ -46,4 +52,9 @@ export class WebService {
   createBrand(brand: Brand) {
     return this.http.post(this.configURL + 'product/brands', brand);
   }
+
+  createProduct(brand: FormGroup) {
+    return this.http.post(this.configURL + 'product', brand);
+  }
+
 }

@@ -71,6 +71,6 @@ export class ProductListComponent implements OnInit {
   }
 
   onCreate() {
-    this.router.navigate(['/products/create']);
+    this.router.navigate(['/main/products/create']);
   }
 }
