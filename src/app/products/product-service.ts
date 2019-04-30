@@ -1,19 +1,18 @@
 import {Injectable} from '@angular/core';
-import {ProductSearchBuilder} from '../../shared/search/products/product.search';
-import {WebService} from '../../shared/web/web.service';
+import {ProductSearchBuilder} from '../shared/search/products/product.search';
+import {WebService} from '../shared/web/web.service';
 import {Subject} from 'rxjs';
-import {Product, ProductBuilder} from '../../shared/views/product';
+import {Product, ProductBuilder} from '../shared/views/product';
 import {Data} from '@angular/router';
 
 @Injectable()
 export class ProductService {
   productsSearchObs = new Subject();
   private product = new Product();
-  productsArray: Product[] = [];
+  private productsArray: Product[] = [];
   private productSearchBuilder = new ProductSearchBuilder();
 
-  constructor(private webService: WebService) {
-  }
+  constructor(private webService: WebService) {}
 
   private searchProducts(query: string) {
     this.webService.getProductsByQuery(query)

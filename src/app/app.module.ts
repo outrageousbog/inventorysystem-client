@@ -20,10 +20,11 @@ import { CreateBrandComponent } from './brands/create-brand/create-brand.compone
 import { FrontPageComponent } from './front-page/front-page.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { BrandListComponent } from './brands/brand-list/brand-list.component';
-import {ProductService} from './products/product-list/product-service';
+import {ProductService} from './products/product-service';
 import {BrandService} from './brands/brand-list/brand-service';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import {ProductResolver} from './products/product-information/product-resolver';
+import {NgHttpLoaderModule} from 'ng-http-loader';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {ProductResolver} from './products/product-information/product-resolver';
     AppRoutingModules,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgHttpLoaderModule.forRoot()
   ],
   providers: [
     AuthService,

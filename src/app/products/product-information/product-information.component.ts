@@ -4,7 +4,7 @@ import {Product, ProductBuilder} from '../../shared/views/product';
 import {ActivatedRoute, Data, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {Location} from '@angular/common';
-import {ProductService} from '../product-list/product-service';
+import {ProductService} from '../product-service';
 
 @Component({
   selector: 'app-product-information',

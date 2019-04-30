@@ -3,7 +3,7 @@ import {Product} from '../../shared/views/product';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {PaginatorService} from '../../shared/pages/paginator.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ProductService} from './product-service';
+import {ProductService} from '../product-service';
 
 @Component({
   selector: 'app-product-list',

@@ -1,16 +1,19 @@
 <div class="d-flex justify-content-center">
-  <div>
-    <p>name: {{product.productName}}</p>
-    <p>id: {{product.productID}}</p>
-    <p>sku: {{product.productSKU}}</p>
-    <p>price: {{product.productPrice}}</p>
-    <p>variable costs: {{product.productVariableCost}}</p>
+  <div class="card" style="width: 25rem;">
+    <div class="card-body">
+      <h2 class="card-title">Product information</h2>
+      <div>
+        <p>name: {{product.productName}}</p>
+        <p>id: {{product.productID}}</p>
+        <p>sku: {{product.productSKU}}</p>
+        <p>price: {{product.productPrice}}</p>
+        <p>variable costs: {{product.productVariableCost}}</p>
+      </div>
+      <br>
+      <div class="d-flex justify-content-center">
+      <button class="btn btn-danger" (click)="deleteProduct()">Delete</button>
+      <button class="btn btn-primary" (click)="onBack()">Back</button>
+      </div>
+    </div>
   </div>
-</div>
-
-<br>
-
-<div class="d-flex justify-content-center">
-<button class="btn btn-danger" (click)="deleteProduct()">Delete</button>
-<button class="btn btn-primary" (click)="onBack()">Back</button>
 </div>
