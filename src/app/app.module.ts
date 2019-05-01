@@ -26,6 +26,9 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import {ProductResolver} from './products/product-information/product-resolver';
 import {NgHttpLoaderModule} from 'ng-http-loader';
 import { CreateMaterialComponent } from './materials/create-material/create-material.component';
+import { MaterialsComponent } from './materials/materials.component';
+import { MaterialsListComponent } from './materials/materials-list/materials-list.component';
+import {MaterialService} from './materials/material.service';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,8 @@ import { CreateMaterialComponent } from './materials/create-material/create-mate
     BrandListComponent,
     ErrorPageComponent,
     CreateMaterialComponent,
+    MaterialsComponent,
+    MaterialsListComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +65,7 @@ import { CreateMaterialComponent } from './materials/create-material/create-mate
     ProductService,
     BrandService,
     ProductResolver,
+    MaterialService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

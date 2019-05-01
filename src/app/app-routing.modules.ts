@@ -14,6 +14,7 @@ import {BrandListComponent} from './brands/brand-list/brand-list.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import {ProductResolver} from './products/product-information/product-resolver';
 import {CreateMaterialComponent} from './materials/create-material/create-material.component';
+import {MaterialsComponent} from './materials/materials.component';
 
 const appRoutes: Routes = [
   {
@@ -47,7 +48,13 @@ const appRoutes: Routes = [
           {path: '**', component: ErrorPageComponent},
         ]
       },
-      {path: 'materials/create', component: CreateMaterialComponent},
+      {
+        path:'materials',
+        component: MaterialsComponent,
+        children: [
+          {path: 'create', component: CreateMaterialComponent}
+        ]
+      }
     ]
   },
   {path: 'login', component: LoginComponent},

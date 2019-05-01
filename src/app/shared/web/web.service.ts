@@ -40,6 +40,10 @@ export class WebService {
     return this.http.get<Product[]>(this.configURL + 'product/' + query);
   }
 
+  getMaterialsByQuery(query: string) {
+    return this.http.get<Material[]>(this.configURL + 'material/' + query)
+  }
+
   getProduct(query: string) {
     console.log(this.configURL + 'product/' + query);
     return this.http.get<Product>(this.configURL + 'product/' + query);

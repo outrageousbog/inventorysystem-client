@@ -1,10 +1,10 @@
 <div class="d-flex justify-content-center">
 
-  <form [formGroup]="brandSearch" (ngSubmit)="onSubmit()">
-    <label for="search">Search for brands</label>
+  <form [formGroup]="materialSearch" (ngSubmit)="onSubmit()">
+    <label for="search">Search for materials</label>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text">Brand</span>
+        <span class="input-group-text">material</span>
       </div>
       <input type="text"
              id="search"
@@ -60,9 +60,9 @@
       </tr>
       </thead>
       <tbody *ngIf="searchComplete">
-      <tr *ngFor="let brand of brandList | slice:pageService.showPagesFrom():pageService.showPagesTo(); let i=index">
-        <td>{{ brand.brandName || null}}</td>
-        <td>{{ brand.brandID || null}}</td>
+      <tr *ngFor="let material of materialList | slice:pageService.showPagesFrom():pageService.showPagesTo(); let i=index">
+        <td>{{ material.materialName || null}}</td>
+        <td>{{ material.materialID || null}}</td>
       </tr>
       </tbody>
     </table>
