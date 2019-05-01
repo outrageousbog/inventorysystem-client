@@ -19,12 +19,12 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/main']);
   }
 
-  onProductsClick() {
-    this.router.navigate(['/main/products']);
+  onViewClick(path: string) {
+    this.router.navigate(['/main/' + path]);
   }
 
-  onBrandsClick() {
-    this.router.navigate(['/main/brands']);
+  onCreateClick(path: string) {
+    this.router.navigate(['/main/' + path + '/create']);
   }
 
   onLogout() {

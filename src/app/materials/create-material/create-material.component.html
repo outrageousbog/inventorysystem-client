@@ -10,8 +10,8 @@
           formControlName="materialName"
           placeholder="Apple"
           class="form-control">
-        <span class="help-block" *ngIf="!materialForm.get('material').valid && materialForm.get('material').touched">
-          <span *ngIf="materialForm.get('material').errors['required']">
+        <span class="help-block" *ngIf="!materialForm.get('materialName').valid && materialForm.get('materialName').touched">
+          <span *ngIf="materialForm.get('materialName').errors['required']">
             This field is required
           </span>
         </span>
