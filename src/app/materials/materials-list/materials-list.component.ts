@@ -23,7 +23,6 @@ export class MaterialsListComponent implements OnInit {
 
 
   ngOnInit() {
-
     this.materialSearch = new FormGroup({
       'search': new FormControl(null, [Validators.required])
     });
@@ -48,10 +47,10 @@ export class MaterialsListComponent implements OnInit {
 
   onSubmit() {
     console.log(this.materialSearch.controls.search.value);
-    this.searchForBrands();
+    this.searchForMaterials();
   }
 
-  private searchForBrands() {
+  private searchForMaterials() {
     this.materialService.search(this.materialSearch.controls.search.value);
   }
 

@@ -15,6 +15,7 @@ import {ErrorPageComponent} from './error-page/error-page.component';
 import {ProductResolver} from './products/product-information/product-resolver';
 import {CreateMaterialComponent} from './materials/create-material/create-material.component';
 import {MaterialsComponent} from './materials/materials.component';
+import {MaterialsListComponent} from './materials/materials-list/materials-list.component';
 
 const appRoutes: Routes = [
   {
@@ -52,6 +53,7 @@ const appRoutes: Routes = [
         path:'materials',
         component: MaterialsComponent,
         children: [
+          {path: '', pathMatch: 'full', component: MaterialsListComponent},
           {path: 'create', component: CreateMaterialComponent}
         ]
       }

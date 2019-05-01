@@ -7,7 +7,7 @@ import {MaterialSearchBuilder} from '../shared/search/materials/material.search'
 
 @Injectable()
 export class MaterialService {
-  private materialList: Material[];
+  private materialList: Material[] = [];
   materialSearchSubject = new Subject();
   private materialSearchBuilder = new MaterialSearchBuilder();
 
@@ -39,7 +39,7 @@ export class MaterialService {
 
   search(searchValue: string){
     if (searchValue != null){
-      this.materialSearchBuilder.withContains('brandName', searchValue);
+      this.materialSearchBuilder.withContains('materialName', searchValue);
     }
     let searchQuery = this.materialSearchBuilder.build();
     console.log(this.materialSearchBuilder.build());

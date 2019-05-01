@@ -1,82 +1,34 @@
 <div class="d-flex justify-content-center">
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h2 class="card-title">Create material</h2>
+      <form [formGroup]="materialForm" (ngSubmit)="onSubmit()">
+        <label for="material">Name of material:</label>
+        <input
+          type="text"
+          id="material"
+          formControlName="materialName"
+          placeholder="Apple"
+          class="form-control">
+        <span class="help-block" *ngIf="!materialForm.get('material').valid && materialForm.get('material').touched">
+          <span *ngIf="materialForm.get('material').errors['required']">
+            This field is required
+          </span>
+        </span>
 
-  <form [formGroup]="brandSearch" (ngSubmit)="onSubmit()">
-    <label for="search">Search for brands</label>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text">Brand</span>
-      </div>
-      <input type="text"
-             id="search"
-             class="form-control"
-             formControlName="search"
-             placeholder="ferrari">
-      <div class="input-group-append">
-        <button class="input-group-append btn btn-primary" type="submit">Search</button>
+        <br>
+        <hr>
+        <button type="submit" [disabled]="!materialForm.valid" class="btn btn-primary">Create</button>
+      </form>
+      <div *ngIf="searchComplete">
+        <br>
+        <div class="alert alert-success" role="alert">
+          <h4 class="alert-heading">
+            Success!
+          </h4>
+          Material was succesfully created. <a class="close" (click)="onClose()">x</a>
+        </div>
       </div>
     </div>
-  </form>
-</div>
-
-<div class="d-flex justify-content-center">
-  <div class="row col-md-4">
-    <label class="d-inline-flex">
-      Show
-      <select [(ngModel)]="pageService.toShow" class="custom-select custom-select-sm w-50" (change)="pageService.setToShow()">
-        <option *ngFor="let option of pageService.optionsToShow">
-          {{ option.name }}
-        </option>
-      </select>
-      entries
-    </label>
-  </div>
-
-  <nav aria-label="Paginator">
-    <ul class="pagination">
-      <li class="page-item" *ngIf="pageService.previousButton; else previousButtonDisabled" style="cursor: pointer"><a class="page-link" (click)="updatePages(pageService.currentPage - 1)">Previous</a></li>
-
-      <li class="page-item" style="cursor: pointer"
-          *ngFor="let page of pageService.pageList; let i = index">
-        <a class="page-link" *ngIf="(page) !== pageService.currentPage; else SelectedPageItem" (click)="updatePages(page)">
-          {{ page + 1}}
-        </a>
-      </li>
-      <li class="page-item" *ngIf="pageService.nextButton; else nextButtonDisabled" style="cursor: pointer"><a class="page-link" (click)="updatePages(pageService.currentPage + 1)">Next</a></li>
-    </ul>
-  </nav>
-</div>
-<ng-template #previousButtonDisabled>
-  <li class="page-item disabled"><a class="page-link">Previous</a></li>
-</ng-template>
-
-
-<div class="d-flex justify-content-center">
-  <div class="row col-md-4">
-    <table id="dtBasicExample" class="table table-hover">
-      <thead class="thead-dark">
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">ID </th>
-      </tr>
-      </thead>
-      <tbody *ngIf="searchComplete">
-      <tr *ngFor="let brand of brandList | slice:pageService.showPagesFrom():pageService.showPagesTo(); let i=index">
-        <td>{{ brand.brandName || null}}</td>
-        <td>{{ brand.brandID || null}}</td>
-      </tr>
-      </tbody>
-    </table>
-    <button class="btn btn-success" (click)="onCreate()">Create</button>
   </div>
 </div>
-<ng-template #nextButtonDisabled>
-  <li class="page-item disabled"><a class="page-link">Next</a></li>
-</ng-template>
-
-<ng-template #SelectedPageItem>
-  <li class="page-item active">
-    <a class="page-link">
-      {{ pageService.currentPage + 1 }}
-    </a>
-  </li>
-</ng-template>
