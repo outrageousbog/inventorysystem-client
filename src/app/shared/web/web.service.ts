@@ -57,4 +57,8 @@ export class WebService {
     return this.http.post(this.configURL + 'product', brand);
   }
 
+  createMaterial(material: FormGroup) {
+    return this.http.post(this.configURL + 'material', material);
+  }
+
 }

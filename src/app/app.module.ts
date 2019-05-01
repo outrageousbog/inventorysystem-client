@@ -25,6 +25,7 @@ import {BrandService} from './brands/brand-list/brand-service';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import {ProductResolver} from './products/product-information/product-resolver';
 import {NgHttpLoaderModule} from 'ng-http-loader';
+import { CreateMaterialComponent } from './materials/create-material/create-material.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {NgHttpLoaderModule} from 'ng-http-loader';
     ProductListComponent,
     BrandListComponent,
     ErrorPageComponent,
+    CreateMaterialComponent,
   ],
   imports: [
     BrowserModule,

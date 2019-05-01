@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CreateProductService} from './create-product.service';
 import {Brand} from '../../shared/views/brand';
 import {Material} from '../../shared/views/material';
@@ -14,6 +14,7 @@ export class CreateProductComponent implements OnInit {
   productForm: FormGroup;
   brandList: Brand[];
   materialList: Material[];
+  n=1;
 
   constructor(private createService: CreateProductService) { }
 
@@ -26,7 +27,7 @@ export class CreateProductComponent implements OnInit {
       productPrice: new FormControl(2000,[Validators.required]),
       productVariableCost: new FormControl(1500,[Validators.required]),
       productStartFactor: new FormControl(400,[Validators.required]),
-      productGrowthFactor: new FormControl(20,[Validators.required])
+      productGrowthFactor: new FormControl(20,[Validators.required]),
     });
 
     this.createService.materialSubject
@@ -52,6 +53,6 @@ export class CreateProductComponent implements OnInit {
 
   onSubmit() {
     console.log(this.productForm.value);
-    this.createService.createProduct(this.productForm.value);
+    //this.createService.createProduct(this.productForm.value);
   }
 }

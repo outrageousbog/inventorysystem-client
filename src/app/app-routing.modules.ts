@@ -13,6 +13,7 @@ import {ProductListComponent} from './products/product-list/product-list.compone
 import {BrandListComponent} from './brands/brand-list/brand-list.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import {ProductResolver} from './products/product-information/product-resolver';
+import {CreateMaterialComponent} from './materials/create-material/create-material.component';
 
 const appRoutes: Routes = [
   {
@@ -45,7 +46,8 @@ const appRoutes: Routes = [
           {path: 'create', component: CreateBrandComponent},
           {path: '**', component: ErrorPageComponent},
         ]
-      }
+      },
+      {path: 'materials/create', component: CreateMaterialComponent},
     ]
   },
   {path: 'login', component: LoginComponent},
