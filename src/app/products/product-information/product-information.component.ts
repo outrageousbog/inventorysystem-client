@@ -15,6 +15,7 @@ export class ProductInformationComponent implements OnInit {
   product: Product;
   private id: number;
   protected isSearched: boolean = false;
+  isDeleted = false;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
@@ -36,19 +37,27 @@ export class ProductInformationComponent implements OnInit {
 
 
   deleteProduct() {
-    this.webService.deleteProduct(this.product.productID)
-      .subscribe(
-        (data: Data) => {
-          console.log(data);
-        },
-        (error: Data) => {
-          console.log(error);
-        }
-      )
+    if (confirm(`Are you sure, you want to delete ${this.product.productName}`)){
+      this.webService.deleteProduct(this.product.productID)
+        .subscribe(
+          (data: Data) => {
+            console.log(data);
+            this.isDeleted = true;
+          },
+          (error: Data) => {
+            console.log(error);
+          }
+        )
+    }
+
   }
 
   onBack() {
     this.location.back();
   }
 
+  onClose() {
+    this.isDeleted = false;
+    this.onBack();
+  }
 }

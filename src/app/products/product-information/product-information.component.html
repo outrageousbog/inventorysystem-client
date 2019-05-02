@@ -9,9 +9,19 @@
         <p>price: {{product.productPrice}}</p>
         <p>variable costs: {{product.productVariableCost}}</p>
       </div>
+      <div *ngIf="isDeleted">
+        <br>
+        <div class="alert alert-success" role="alert">
+          <h4 class="alert-heading">
+            Success!
+          </h4>
+          Product was succesfully deleted. <a class="close" (click)="onClose()">x</a>
+        </div>
+      </div>
       <br>
+
       <div class="d-flex justify-content-center">
-      <button class="btn btn-danger" (click)="deleteProduct()">Delete</button>
+      <button class="btn btn-danger" [disabled]="isDeleted" style="cursor: pointer;" (click)="deleteProduct()">Delete</button>
       <button class="btn btn-primary" (click)="onBack()">Back</button>
       </div>
     </div>
