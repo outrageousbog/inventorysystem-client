@@ -8,10 +8,7 @@
 <!--          id="username"-->
 <!--          formControlName="username"-->
 <!--          class="form-control">-->
-<!--        <span class="help-block" *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">-->
-<!--          <span *ngIf="loginForm.get('username').errors['required']">-->
-<!--            This field is required-->
-<!--          </span>-->
+
 <!--        </span>-->
 
 <!--        <br>-->
@@ -48,7 +45,6 @@
               <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <label for="username">Username</label>
                 <div class="form-label-group">
-
                   <input
                     type="text"
                     id="username"
