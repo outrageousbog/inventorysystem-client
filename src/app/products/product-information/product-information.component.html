@@ -3,11 +3,16 @@
     <div class="card-body">
       <h2 class="card-title">Product information</h2>
       <div>
-        <p>name: {{product.productName}}</p>
-        <p>id: {{product.productID}}</p>
-        <p>sku: {{product.productSKU}}</p>
-        <p>price: {{product.productPrice}}</p>
-        <p>variable costs: {{product.productVariableCost}}</p>
+        <p><b>Name:</b> {{product.productName}}</p>
+        <p><b>ID:</b> {{product.productID}}</p>
+        <p><b>SKU:</b> {{product.productSKU}}</p>
+        <p><b>Price:</b> {{product.productPrice}}</p>
+        <p><b>Variable Costs:</b> {{product.productVariableCost}}</p>
+        <hr>
+        <h4>Materials</h4>
+        <p *ngFor="let material of materials; let i = index">
+          <b>{{ i }}:</b> {{ material.materialName }}
+        </p>
       </div>
       <div *ngIf="isDeleted">
         <br>

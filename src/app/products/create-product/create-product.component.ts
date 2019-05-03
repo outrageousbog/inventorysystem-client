@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CreateProductService} from './create-product.service';
 import {Brand} from '../../shared/views/brand';
 import {Material} from '../../shared/views/material';
@@ -14,6 +14,8 @@ export class CreateProductComponent implements OnInit {
   productForm: FormGroup;
   brandList: Brand[];
   materialList: Material[];
+  readonly maxToAdd = 5;
+  readonly maxCountForPress: 8;
   n=1;
 
   constructor(private createService: CreateProductService,
@@ -28,10 +30,8 @@ export class CreateProductComponent implements OnInit {
       productVariableCost: new FormControl(1500,[Validators.required]),
       productStartFactor: new FormControl(400,[Validators.required]),
       productGrowthFactor: new FormControl(20,[Validators.required]),
-      productMaterialsID: this.formBuilder.array([])
+      productsInsertMaterials: this.formBuilder.array([])
     });
-
-
 
     this.createService.materialSubject
       .subscribe(
@@ -56,7 +56,7 @@ export class CreateProductComponent implements OnInit {
 
   onSubmit() {
     console.log(this.productForm.value);
-    //this.createService.createProduct(this.productForm.value);
+    this.createService.createProduct(this.productForm.value);
   }
 
   /**
@@ -64,18 +64,30 @@ export class CreateProductComponent implements OnInit {
    * https://angularfirebase.com/lessons/basics-reactive-forms-in-angular/
    */
   get materialForms() {
-    return this.productForm.controls.productMaterialsID as FormArray;
+    return this.productForm.controls.productsInsertMaterials as FormArray;
   }
 
   addMaterial() {
     const materialArray = this.formBuilder.group({
-      materialName: [null, [Validators.required]]
+      MaterialName: [null, [Validators.required, this.maximumLimit.bind(this)]]
     });
 
     this.materialForms.push(materialArray);
+    console.log(this.materialForms.length);
   }
 
   removeMaterial(index: number) {
     this.materialForms.removeAt(index);
+  }
+
+  /**
+   * VALIDATORS
+   */
+
+  maximumLimit(control: AbstractControl): { [key: string]: boolean } | null {
+    if (this.materialForms.length > this.maxToAdd) {
+      return {'maximumError': true}
+    }
+    return null;
   }
 }

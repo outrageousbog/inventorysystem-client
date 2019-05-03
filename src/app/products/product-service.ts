@@ -4,6 +4,7 @@ import {WebService} from '../shared/web/web.service';
 import {Subject} from 'rxjs';
 import {Product, ProductBuilder} from '../shared/views/product';
 import {Data} from '@angular/router';
+import {Material, MaterialBuilder} from '../shared/views/material';
 
 @Injectable()
 export class ProductService {
@@ -62,6 +63,18 @@ export class ProductService {
       }
     );
     return tempProd[0];
+  }
+
+  getMaterialFromJson(materialObject: Material[]) {
+    let tempMat: Material[] = materialObject.map(
+      (mat) => {
+        return new MaterialBuilder()
+          .withName(mat.materialName)
+          .withID(mat.materialID)
+          .build()
+      }
+    );
+    return tempMat;
   }
 
 }

@@ -49,6 +49,10 @@ export class WebService {
     return this.http.get<Product>(this.configURL + 'product/' + query);
   }
 
+  getProductMaterials(id: number) {
+    return this.http.get<Material>(this.configURL + 'material/materialsorders/' + id);
+  }
+
   deleteProduct(id: any) {
     return this.http.delete(this.configURL + 'product/' + id);
   }

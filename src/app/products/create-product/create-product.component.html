@@ -32,11 +32,11 @@
     <div class="form-row">
       <div class="col-md-9">
         <label for="matID">Materials</label>
-        <div formArrayName="productMaterialsID">
+        <div formArrayName="productsInsertMaterials">
           <div *ngFor="let material of materialForms.controls; let i = index" [formGroupName]="i">
             <select class="form-control"
                     id="matID"
-                    formControlName="materialName">
+                    formControlName="MaterialName">
               <option *ngFor="let material of materialList" [ngValue]="material.materialName"> {{ material.materialName }}</option>
             </select>
             <button class="btn btn-danger" (click)="removeMaterial(i)">X</button>

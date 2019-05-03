@@ -5,6 +5,7 @@ import {ActivatedRoute, Data, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {Location} from '@angular/common';
 import {ProductService} from '../product-service';
+import {Material} from '../../shared/views/material';
 
 @Component({
   selector: 'app-product-information',
@@ -13,8 +14,7 @@ import {ProductService} from '../product-service';
 })
 export class ProductInformationComponent implements OnInit {
   product: Product;
-  private id: number;
-  protected isSearched: boolean = false;
+  materials: Material[];
   isDeleted = false;
 
   constructor(private productService: ProductService,
@@ -29,7 +29,11 @@ export class ProductInformationComponent implements OnInit {
       .subscribe(
         (data: Data) => {
           let productObject = data['product'];
+          let materialObject = data['material'];
+          console.log(data);
           this.product = this.productService.getProductFromJson(productObject);
+          this.materials = this.productService.getMaterialFromJson(materialObject);
+          console.log(this.materials);
         }
       );
   }
