@@ -24,10 +24,9 @@
         </div>
       </div>
       <br>
-
       <div class="d-flex justify-content-center">
-      <button class="btn btn-danger" [disabled]="isDeleted" style="cursor: pointer;" (click)="deleteProduct()">Delete</button>
-      <button class="btn btn-primary" (click)="onBack()">Back</button>
+        <button class="btn btn-primary" style="margin: 10px" (click)="onBack()">Back</button>
+        <button class="btn btn-danger"  style="margin: 10px;" [disabled]="isDeleted" (click)="deleteProduct()">Delete</button>
       </div>
     </div>
   </div>
