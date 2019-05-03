@@ -12,10 +12,11 @@ import {FrontPageComponent} from './front-page/front-page.component';
 import {ProductListComponent} from './products/product-list/product-list.component';
 import {BrandListComponent} from './brands/brand-list/brand-list.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
-import {ProductResolver} from './products/product-information/product-resolver';
+import {ProductResolver} from './products/product-information/resolvers/product-resolver';
 import {CreateMaterialComponent} from './materials/create-material/create-material.component';
 import {MaterialsComponent} from './materials/materials.component';
 import {MaterialsListComponent} from './materials/materials-list/materials-list.component';
+import {MaterialResolver} from './products/product-information/resolvers/material.resolver';
 
 const appRoutes: Routes = [
   {
@@ -36,7 +37,7 @@ const appRoutes: Routes = [
         children: [
           {path: '', pathMatch: 'full', component: ProductListComponent},
           {path: 'create', component: CreateProductComponent},
-          {path: ':id', component: ProductInformationComponent,resolve: {product: ProductResolver}},
+          {path: ':id', component: ProductInformationComponent,resolve: {product: ProductResolver, material: MaterialResolver}},
           {path: '**', component: ErrorPageComponent},
         ]
       },

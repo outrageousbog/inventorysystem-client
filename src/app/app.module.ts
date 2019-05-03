@@ -23,12 +23,13 @@ import { BrandListComponent } from './brands/brand-list/brand-list.component';
 import {ProductService} from './products/product-service';
 import {BrandService} from './brands/brand-list/brand-service';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import {ProductResolver} from './products/product-information/product-resolver';
 import {NgHttpLoaderModule} from 'ng-http-loader';
 import { CreateMaterialComponent } from './materials/create-material/create-material.component';
 import { MaterialsComponent } from './materials/materials.component';
 import { MaterialsListComponent } from './materials/materials-list/materials-list.component';
 import {MaterialService} from './materials/material.service';
+import {ProductResolver} from './products/product-information/resolvers/product-resolver';
+import {MaterialResolver} from './products/product-information/resolvers/material.resolver';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import {MaterialService} from './materials/material.service';
     ProductService,
     BrandService,
     ProductResolver,
+    MaterialResolver,
     MaterialService,
     {
       provide: HTTP_INTERCEPTORS,

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Product} from '../../shared/views/product';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
-import {Observable} from 'rxjs';
+import {forkJoin, Observable} from 'rxjs';
 import {ProductService} from '../product-service';
 import {WebService} from '../../shared/web/web.service';
 
@@ -15,7 +15,10 @@ export class ProductResolver implements Resolve<Product>{
   resolve(route: ActivatedRouteSnapshot,
           state: RouterStateSnapshot): Observable<any> | Promise<any> | Product {
     console.log('is resolved');
-    return this.webService.getProductsByQuery(`?$filter=productID eq ${+route.params['id']}`);
+    let id = +route.params['id'];
+    let productResponse = this.webService.getProductsByQuery(`?$filter=productID eq ${id}`);
+    let materialResponse = this.webService.getProductMaterials(id)
+    return forkJoin(productResponse, materialResponse);
   }
 
 }
