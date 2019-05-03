@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-products',
@@ -8,8 +9,9 @@ import {Component, OnInit} from '@angular/core';
 export class ProductsComponent implements OnInit {
 
 
-  constructor() { }
+  constructor(private title: Title) { }
 
   ngOnInit() {
+    this.title.setTitle('Products - InventorySystem');
   }
 }
