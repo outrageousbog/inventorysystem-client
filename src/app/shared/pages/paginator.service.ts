@@ -46,8 +46,8 @@ export class PaginatorService {
     this.amountProducts = amountProducts;
     this.pageList = this.fillArrayWithNumbers(Math.ceil(this.amountProducts / this.toShow));
 
-    this.updateVariables();
     this.currentPage = 0;
+    this.updateVariables();
   }
 
   private fillArrayWithNumbers(n: number) {

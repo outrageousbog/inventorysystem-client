@@ -18,8 +18,7 @@ export class MaterialsListComponent implements OnInit {
 
   constructor(private materialService: MaterialService,
               private router: Router,
-              private pageService: PaginatorService,
-              private route: ActivatedRoute) {}
+              private pageService: PaginatorService) {}
 
 
   ngOnInit() {
@@ -65,9 +64,5 @@ export class MaterialsListComponent implements OnInit {
     else {
       this.pageService.initPages(this.materialList.length);
     }
-  }
-
-  onCreate() {
-    this.router.navigate(['create'], {relativeTo: this.route});
   }
 }

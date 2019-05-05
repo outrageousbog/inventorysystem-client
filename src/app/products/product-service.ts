@@ -5,6 +5,7 @@ import {Subject} from 'rxjs';
 import {Product, ProductBuilder} from '../shared/views/product';
 import {Data} from '@angular/router';
 import {Material, MaterialBuilder} from '../shared/views/material';
+import {FormGroup} from '@angular/forms';
 
 @Injectable()
 export class ProductService {
@@ -41,10 +42,13 @@ export class ProductService {
     return this.productsArray.slice();
   }
 
-  search(searchValue: string) {
-    if (searchValue != null) {
-      this.productSearchBuilder.withContains('productName', searchValue)
+  search(formGroup: FormGroup) {
+    let search = formGroup.controls.search.value;
+    let onlyStock = formGroup.controls.onlyStock.value;
+    if (search != null) {
+      this.productSearchBuilder.withContains('productName', search)
     }
+    this.productSearchBuilder.withOnlyStock(onlyStock);
     let searchQuery = this.productSearchBuilder.build();
     this.searchProducts(searchQuery.query);
   }

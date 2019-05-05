@@ -2,6 +2,7 @@ export class ProductSearch {
   query = '';
   private contains = '';
   private orderBy = '';
+  private onlyStock = '';
 
 
   setContains(keyToContain: string, name: string) {
@@ -10,9 +11,11 @@ export class ProductSearch {
   setOrderBy(name: string) {
     this.contains = `$OrderBy=${name}&`;
   }
+  setOnlyStock() {
+  }
 
   build() {
-    this.query = `products?${this.contains}${this.orderBy}`;
+    this.query = `products?${this.contains}${this.orderBy}${this.onlyStock}`;
   }
 }
 
@@ -26,6 +29,11 @@ export class ProductSearchBuilder {
 
   withOrderBy(name: string) {
     this.productSearch.setOrderBy(name);
+    return this;
+  }
+
+  withOnlyStock(showOnlyStock: boolean) {
+    showOnlyStock ? this.productSearch.setOnlyStock() : null;
     return this;
   }
 
