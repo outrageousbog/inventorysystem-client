@@ -23,7 +23,8 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.productSearch = new FormGroup({
-      'search': new FormControl(null, [Validators.required])
+      'search': new FormControl(null, [Validators.required]),
+      'onlyStock': new FormControl(false)
     });
 
     this.productList = this.productService.getProductsArray();
@@ -49,7 +50,7 @@ export class ProductListComponent implements OnInit {
   }
 
   private searchForProducts() {
-    this.productService.search(this.productSearch.controls.search.value);
+    this.productService.search(this.productSearch);
   }
 
   updatePages(newPage: number) {
@@ -68,9 +69,5 @@ export class ProductListComponent implements OnInit {
   onProductClick(index: number) {
     console.log(index);
     this.router.navigate(['/main/products/'+index],);
-  }
-
-  onCreate() {
-    this.router.navigate(['/main/products/create']);
   }
 }

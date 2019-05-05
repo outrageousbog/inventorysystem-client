@@ -3,11 +3,14 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Product} from '../views/product';
 import {UserService} from '../views/user.service';
 import {Brand} from '../views/brand';
-import {Data} from '@angular/router';
 import {Material} from '../views/material';
 import {FormGroup} from '@angular/forms';
+import {retry} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+  }
+)
 export class WebService {
   private configURL = 'http://localhost:5000/api/';
 
@@ -19,7 +22,10 @@ export class WebService {
   }
 
   validateUser(user: UserService) {
-    return this.http.post(this.configURL + 'session', user);
+    return this.http.post(this.configURL + 'session', user)
+      .pipe(
+        retry(1)
+      );
   }
 
   getBrands() {
@@ -41,7 +47,7 @@ export class WebService {
   }
 
   getMaterialsByQuery(query: string) {
-    return this.http.get<Material[]>(this.configURL + 'material/' + query)
+    return this.http.get<Material[]>(this.configURL + 'material/' + query);
   }
 
   getProduct(query: string) {
@@ -68,5 +74,4 @@ export class WebService {
   createMaterial(material: FormGroup) {
     return this.http.post(this.configURL + 'material', material);
   }
-
 }
