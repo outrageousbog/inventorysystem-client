@@ -30,7 +30,8 @@ export class CreateProductComponent implements OnInit {
       productVariableCost: new FormControl(1500,[Validators.required]),
       productStartFactor: new FormControl(400,[Validators.required]),
       productGrowthFactor: new FormControl(20,[Validators.required]),
-      productsInsertMaterials: this.formBuilder.array([])
+      productsInsertMaterials: this.formBuilder.array([]),
+      productQuantity: new FormControl(null, [this.minimumQuantity.bind(this)])
     });
 
     this.createService.materialSubject
@@ -69,7 +70,7 @@ export class CreateProductComponent implements OnInit {
 
   addMaterial() {
     const materialArray = this.formBuilder.group({
-      MaterialName: [null, [Validators.required, this.maximumLimit.bind(this)]]
+      MaterialName: [null, [Validators.required, this.maximumLimitMaterials.bind(this)]]
     });
 
     this.materialForms.push(materialArray);
@@ -84,10 +85,20 @@ export class CreateProductComponent implements OnInit {
    * VALIDATORS
    */
 
-  maximumLimit(control: AbstractControl): { [key: string]: boolean } | null {
+  maximumLimitMaterials(control: AbstractControl): { [key: string]: boolean } | null {
     if (this.materialForms.length > this.maxToAdd) {
       return {'maximumError': true}
     }
     return null;
   }
+  
+  minimumQuantity(control: AbstractControl): {[key: string]: boolean} | null {
+    if (Number(control.value) < 0) {
+      return {
+        'minimumQuantity': true
+      };
+    }
+    return null;
+  }
+  
 }
