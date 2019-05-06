@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         },
         (error: ErrorHandler) => {
           window.alert('Wrong user credentials.');
-          console.log('An error occured: ' + pipe(error.handleError))
+          console.log('An error occured: ' + error.handleError)
         }
       );
   }

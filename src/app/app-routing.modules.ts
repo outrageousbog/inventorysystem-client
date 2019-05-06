@@ -38,7 +38,6 @@ const appRoutes: Routes = [
           {path: '', pathMatch: 'full', component: ProductListComponent},
           {path: 'create', component: CreateProductComponent},
           {path: ':id', component: ProductInformationComponent,resolve: {product: ProductResolver, material: MaterialResolver}},
-          {path: '**', component: ErrorPageComponent},
         ]
       },
       {
@@ -47,7 +46,6 @@ const appRoutes: Routes = [
         children: [
           {path: '', pathMatch: 'full', component: BrandListComponent},
           {path: 'create', component: CreateBrandComponent},
-          {path: '**', component: ErrorPageComponent},
         ]
       },
       {
