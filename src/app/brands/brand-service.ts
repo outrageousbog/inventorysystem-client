@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Brand, BrandBuilder} from '../../shared/views/brand';
 import {Subject} from 'rxjs';
-import {BrandSearchBuilder} from '../../shared/search/brands/brand.search';
-import {WebService} from '../../shared/web/web.service';
+import {BrandSearchBuilder} from '../shared/search/brands/brand.search';
+import {WebService} from '../shared/web/web.service';
 import {Data} from '@angular/router';
+import {Brand, BrandBuilder} from '../shared/views/brand';
+import {Product, ProductBuilder} from '../shared/views/product';
 
 @Injectable()
 export class BrandService {
@@ -47,4 +48,17 @@ export class BrandService {
     this.searchBrands(searchQuery.query);
   }
 
+  getProductsFromJson(productObject: any) : Product[] {
+    let tempProducts: Product[] = productObject.map(
+      (product) => {
+        return new ProductBuilder()
+          .withName(product.productName)
+          .withID(product.productID)
+          .withPrice(product.productPrice)
+          .withAmount(product.productQuantity)
+          .build()
+      }
+    );
+    return tempProducts;
+  }
 }

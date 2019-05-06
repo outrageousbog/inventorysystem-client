@@ -16,7 +16,9 @@ import {ProductResolver} from './products/product-information/resolvers/product-
 import {CreateMaterialComponent} from './materials/create-material/create-material.component';
 import {MaterialsComponent} from './materials/materials.component';
 import {MaterialsListComponent} from './materials/materials-list/materials-list.component';
-import {MaterialResolver} from './products/product-information/resolvers/material.resolver';
+import {MaterialResolver} from './products/product-information/resolvers/material-resolver';
+import {BrandInformationComponent} from './brands/brand-information/brand-information.component';
+import {BrandInformationResolver} from './products/product-information/resolvers/brand-information.resolver';
 
 const appRoutes: Routes = [
   {
@@ -46,6 +48,7 @@ const appRoutes: Routes = [
         children: [
           {path: '', pathMatch: 'full', component: BrandListComponent},
           {path: 'create', component: CreateBrandComponent},
+          {path: ':id', component: BrandInformationComponent, resolve: {brandProduct: BrandInformationResolver}},
         ]
       },
       {

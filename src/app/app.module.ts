@@ -21,7 +21,6 @@ import { FrontPageComponent } from './front-page/front-page.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { BrandListComponent } from './brands/brand-list/brand-list.component';
 import {ProductService} from './products/product-service';
-import {BrandService} from './brands/brand-list/brand-service';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import {NgHttpLoaderModule} from 'ng-http-loader';
 import { CreateMaterialComponent } from './materials/create-material/create-material.component';
@@ -29,7 +28,10 @@ import { MaterialsComponent } from './materials/materials.component';
 import { MaterialsListComponent } from './materials/materials-list/materials-list.component';
 import {MaterialService} from './materials/material.service';
 import {ProductResolver} from './products/product-information/resolvers/product-resolver';
-import {MaterialResolver} from './products/product-information/resolvers/material.resolver';
+import {MaterialResolver} from './products/product-information/resolvers/material-resolver';
+import { BrandInformationComponent } from './brands/brand-information/brand-information.component';
+import {BrandService} from './brands/brand-service';
+import {BrandInformationResolver} from './products/product-information/resolvers/brand-information.resolver';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import {MaterialResolver} from './products/product-information/resolvers/materia
     CreateMaterialComponent,
     MaterialsComponent,
     MaterialsListComponent,
+    BrandInformationComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +71,7 @@ import {MaterialResolver} from './products/product-information/resolvers/materia
     ProductResolver,
     MaterialResolver,
     MaterialService,
+    BrandInformationResolver,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

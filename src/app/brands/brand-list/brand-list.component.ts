@@ -3,7 +3,7 @@ import {Brand} from '../../shared/views/brand';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {PaginatorService} from '../../shared/pages/paginator.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BrandService} from './brand-service';
+import {BrandService} from '../brand-service';
 
 @Component({
   selector: 'app-brand-list',
@@ -71,4 +71,7 @@ export class BrandListComponent implements OnInit {
     this.router.navigate(['create'], {relativeTo: this.route});
   }
 
+  onBrandClick(name: string) {
+    this.router.navigate(['/main/brands/' + name.toLowerCase()]);
+  }
 }

@@ -60,7 +60,7 @@
       </tr>
       </thead>
       <tbody *ngIf="searchComplete">
-      <tr *ngFor="let brand of brandList | slice:pageService.showPagesFrom():pageService.showPagesTo(); let i=index">
+      <tr *ngFor="let brand of brandList | slice:pageService.showPagesFrom():pageService.showPagesTo(); let i=index" style="cursor: pointer;" (click)="onBrandClick(brand.brandName)">
         <td>{{ brand.brandName || null}}</td>
         <td>{{ brand.brandID || null}}</td>
       </tr>
