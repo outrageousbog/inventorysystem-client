@@ -12,7 +12,6 @@ export class ProductService {
   productsSearchObs = new Subject();
   private product = new Product();
   private productsArray: Product[] = [];
-  private productSearchBuilder = new ProductSearchBuilder();
 
   constructor(private webService: WebService) {}
 
@@ -22,16 +21,16 @@ export class ProductService {
           this.productsArray = data.map(
             (product) => {
               return new ProductBuilder()
-                .withID(product.productID)
                 .withName(product.productName)
                 .withPrice(product.productPrice)
-                .withSKU(product.productSKU)
-                .withVariableCosts(product.productVariableCost)
                 .withBrand(product.productBrand)
+                .withAmount(product.productQuantity)
+                .withID(product.productID)
                 .build();
             }
           );
           this.productsSearchObs.next(this.productsArray)
+          console.log(this.productsArray);
         },
         (error: Data) => {
           console.log(error);
@@ -43,26 +42,28 @@ export class ProductService {
   }
 
   search(formGroup: FormGroup) {
+    let productSearchBuilder = new ProductSearchBuilder();
     let search = formGroup.controls.search.value;
     let onlyStock = formGroup.controls.onlyStock.value;
     if (search != null) {
-      this.productSearchBuilder.withContains('productName', search)
+      productSearchBuilder.withContains('productName', search)
     }
-    this.productSearchBuilder.withOnlyStock(onlyStock);
-    let searchQuery = this.productSearchBuilder.build();
+    productSearchBuilder.withOnlyStock(onlyStock);
+    let searchQuery = productSearchBuilder.build();
     this.searchProducts(searchQuery.query);
   }
 
   getProductFromJson(productObject: Product[]) {
     let tempProd: Product[] = productObject.map(
-      (prod) => {
+      (product) => {
         return new ProductBuilder()
-          .withVariableCosts(prod.productVariableCost)
-          .withBrand(prod.productBrand)
-          .withName(prod.productName)
-          .withSKU(prod.productSKU)
-          .withPrice(prod.productPrice)
-          .withID(prod.productID)
+          .withVariableCosts(product.productVariableCost)
+          .withBrand(product.productBrand)
+          .withName(product.productName)
+          .withSKU(product.productSKU)
+          .withPrice(product.productPrice)
+          .withID(product.productID)
+          .withAmount(product.productQuantity)
           .build();
       }
     );
@@ -74,7 +75,6 @@ export class ProductService {
       (mat) => {
         return new MaterialBuilder()
           .withName(mat.materialName)
-          .withID(mat.materialID)
           .build()
       }
     );

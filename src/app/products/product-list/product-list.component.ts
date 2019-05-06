@@ -12,7 +12,7 @@ import {ProductService} from '../product-service';
   providers: [PaginatorService]
 })
 export class ProductListComponent implements OnInit {
-  protected productList: Product[] = [null];
+  productList: Product[] = [];
   protected productSearch: FormGroup;
   private searchComplete: boolean = false;
 

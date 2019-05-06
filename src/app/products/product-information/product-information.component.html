@@ -9,6 +9,7 @@
         <p><b>SKU:</b> {{product.productSKU}}</p>
         <p><b>Price:</b> {{product.productPrice}}</p>
         <p><b>Variable Costs:</b> {{product.productVariableCost}}</p>
+        <p><b>Quantity:</b> {{ product.productQuantity }}</p>
         <hr>
         <h4>Materials</h4>
         <p *ngFor="let material of materials; let i = index">

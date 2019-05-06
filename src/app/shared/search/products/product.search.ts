@@ -12,6 +12,7 @@ export class ProductSearch {
     this.contains = `$OrderBy=${name}&`;
   }
   setOnlyStock() {
+    this.onlyStock = `$Filter=productQuantity gt 0`;
   }
 
   build() {

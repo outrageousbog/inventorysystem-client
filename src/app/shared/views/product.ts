@@ -5,6 +5,7 @@ export class Product {
   productBrand: string = '';
   productPrice: string = '';
   productVariableCost: string = '';
+  productQuantity: number;
 
   setSku(sku: string) {
     this.productSKU = sku;
@@ -28,6 +29,10 @@ export class Product {
 
   setVariableCosts(variableCosts: string) {
     this.productVariableCost=variableCosts;
+  }
+
+  setAmount(amount: number) {
+    this.productQuantity = amount;
   }
 }
 
@@ -61,6 +66,11 @@ export class ProductBuilder {
 
   withSKU(sku: string) {
     this.product.setSku(sku);
+    return this;
+  }
+
+  withAmount(amount: number) {
+    this.product.setAmount(amount);
     return this;
   }
 
