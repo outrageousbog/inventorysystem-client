@@ -81,4 +81,13 @@ export class ProductService {
     return tempMat;
   }
 
+  updateQuantity(form: FormGroup) {
+    this.webService.updateQuantity(form)
+      .subscribe(
+        (data: Data) => {
+          console.log(data);
+        }
+      )
+  }
+
 }

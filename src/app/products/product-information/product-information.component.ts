@@ -41,6 +41,7 @@ export class ProductInformationComponent implements OnInit {
       );
 
     this.editForm = new FormGroup({
+      'productID': new FormControl(this.product.productID),
       'productQuantity': new FormControl(this.product.productQuantity, [Validators.required])
     });
   }
@@ -82,6 +83,8 @@ export class ProductInformationComponent implements OnInit {
 
   onSave() {
     this.editMode = false;
-    this.product.setAmount(this.editForm.controls.productQuantity.value);
+    this.productService.updateQuantity(this.editForm.value);
+    console.log(this.editForm.controls);
   }
+
 }

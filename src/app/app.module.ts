@@ -11,7 +11,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {WebService} from './shared/web/web.service';
 import { LoginComponent } from './login/login.component';
 import { BrandsComponent } from './brands/brands.component';
-import {TokenInterceptor} from './shared/authentication/interceptor/token-interceptor';
+import {CustomHttpInterceptor} from './shared/authentication/interceptor/custom-http-interceptor.service';
 import {AuthService} from './shared/authentication/auth.service';
 import { ProductInformationComponent } from './products/product-information/product-information.component';
 import { CreateProductComponent } from './products/create-product/create-product.component';
@@ -74,7 +74,7 @@ import {BrandInformationResolver} from './products/product-information/resolvers
     BrandInformationResolver,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
+      useClass: CustomHttpInterceptor,
       multi: true,
     }
   ],

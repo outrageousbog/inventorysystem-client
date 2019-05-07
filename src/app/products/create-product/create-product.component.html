@@ -39,7 +39,7 @@
                class="form-control">
         <span class="help-block"
               *ngIf="!productForm.get('productQuantity').valid && productForm.get('productQuantity').touched">
-          <span *ngIf="productForm.get('productQuantity').errors['minimumQuantity']" style="color: red;">
+          <span *ngIf="productForm.get('productQuantity').errors['minimumValue']" style="color: red;">
             Quantity must be a positive integer.
           </span>
         </span>

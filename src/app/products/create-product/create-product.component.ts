@@ -23,15 +23,15 @@ export class CreateProductComponent implements OnInit {
 
   ngOnInit() {
     this.productForm = new FormGroup({
-      productSKU: new FormControl(12345678, [Validators.required]),
-      productName: new FormControl('Eris E5',[Validators.required]),
+      productSKU: new FormControl(12345678, [Validators.required, Validators.pattern(/^[0-9]{8}$/)]),
+      productName: new FormControl('Eris E5',[Validators.required, Validators.pattern(/^[\w\s]+$/i)]),
       productBrand: new FormControl('Presonus',[Validators.required]),
-      productPrice: new FormControl(2000,[Validators.required]),
-      productVariableCost: new FormControl(1500,[Validators.required]),
-      productStartFactor: new FormControl(400,[Validators.required]),
-      productGrowthFactor: new FormControl(20,[Validators.required]),
+      productPrice: new FormControl(2000,[Validators.required, this.minimumValue.bind(this)]),
+      productVariableCost: new FormControl(1500,[Validators.required, this.minimumValue.bind(this)]),
+      productStartFactor: new FormControl(400,[Validators.required, this.minimumValue.bind(this)]),
+      productGrowthFactor: new FormControl(20,[Validators.required, this.minimumValue.bind(this)]),
       productsInsertMaterials: this.formBuilder.array([]),
-      productQuantity: new FormControl(null, [this.minimumQuantity.bind(this)])
+      productQuantity: new FormControl(null, [this.minimumValue.bind(this)])
     });
 
     this.createService.materialSubject
@@ -92,7 +92,7 @@ export class CreateProductComponent implements OnInit {
     return null;
   }
   
-  minimumQuantity(control: AbstractControl): {[key: string]: boolean} | null {
+  minimumValue(control: AbstractControl): {[key: string]: boolean} | null {
     if (Number(control.value) < 0) {
       return {
         'minimumQuantity': true
