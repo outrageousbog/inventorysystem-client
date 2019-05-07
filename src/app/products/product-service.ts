@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {ProductSearchBuilder} from '../shared/search/products/product.search';
 import {WebService} from '../shared/web/web.service';
 import {Subject} from 'rxjs';
@@ -12,6 +12,7 @@ export class ProductService {
   productsSearchObs = new Subject();
   private product = new Product();
   private productsArray: Product[] = [];
+  deleteEmitter = new EventEmitter();
 
   constructor(private webService: WebService) {}
 
@@ -88,6 +89,19 @@ export class ProductService {
           console.log(data);
         }
       )
+  }
+
+  deleteProduct(id: string) {
+    this.webService.deleteProduct(id)
+      .subscribe(
+        (data: Data) => {
+          console.log(data);
+          this.deleteEmitter.emit();
+        },
+        (error: Data) => {
+          console.log(error);
+        }
+      );
   }
 
 }

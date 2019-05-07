@@ -12,13 +12,13 @@ import {FrontPageComponent} from './front-page/front-page.component';
 import {ProductListComponent} from './products/product-list/product-list.component';
 import {BrandListComponent} from './brands/brand-list/brand-list.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
-import {ProductResolver} from './products/product-information/resolvers/product-resolver';
+import {ProductResolver} from './shared/resolvers/product-resolver';
 import {CreateMaterialComponent} from './materials/create-material/create-material.component';
 import {MaterialsComponent} from './materials/materials.component';
 import {MaterialsListComponent} from './materials/materials-list/materials-list.component';
-import {MaterialResolver} from './products/product-information/resolvers/material-resolver';
+import {MaterialResolver} from './shared/resolvers/material-resolver';
 import {BrandInformationComponent} from './brands/brand-information/brand-information.component';
-import {BrandInformationResolver} from './products/product-information/resolvers/brand-information.resolver';
+import {BrandInformationResolver} from './shared/resolvers/brand-information.resolver';
 
 const appRoutes: Routes = [
   {

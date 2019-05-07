@@ -22,8 +22,7 @@ export class ProductInformationComponent implements OnInit {
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
-              private location: Location,
-              private webService: WebService) {
+              private location: Location) {
   }
 
   ngOnInit() {
@@ -44,24 +43,22 @@ export class ProductInformationComponent implements OnInit {
       'productID': new FormControl(this.product.productID),
       'productQuantity': new FormControl(this.product.productQuantity, [Validators.required])
     });
+
+    this.productService.deleteEmitter
+      .subscribe(
+        () => {
+          this.isDeleted = true;
+        }
+      )
   }
 
 
 
   deleteProduct() {
     if (confirm(`Are you sure, you want to delete ${this.product.productName}`)){
-      this.webService.deleteProduct(this.product.productID)
-        .subscribe(
-          (data: Data) => {
-            console.log(data);
-            this.isDeleted = true;
-          },
-          (error: Data) => {
-            console.log(error);
-          }
-        )
+        this.productService.deleteProduct(this.product.productID);
+      console.log(this.product.productID);
     }
-
   }
 
   onBack() {

@@ -27,11 +27,11 @@ import { CreateMaterialComponent } from './materials/create-material/create-mate
 import { MaterialsComponent } from './materials/materials.component';
 import { MaterialsListComponent } from './materials/materials-list/materials-list.component';
 import {MaterialService} from './materials/material.service';
-import {ProductResolver} from './products/product-information/resolvers/product-resolver';
-import {MaterialResolver} from './products/product-information/resolvers/material-resolver';
 import { BrandInformationComponent } from './brands/brand-information/brand-information.component';
 import {BrandService} from './brands/brand-service';
-import {BrandInformationResolver} from './products/product-information/resolvers/brand-information.resolver';
+import {ProductResolver} from './shared/resolvers/product-resolver';
+import {MaterialResolver} from './shared/resolvers/material-resolver';
+import {BrandInformationResolver} from './shared/resolvers/brand-information.resolver';
 
 @NgModule({
   declarations: [

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Material} from '../../../shared/views/material';
+import {Material} from '../views/material';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
-import {WebService} from '../../../shared/web/web.service';
+import {WebService} from '../web/web.service';
 import {Observable} from 'rxjs';
 
 @Injectable()
