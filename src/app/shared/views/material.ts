@@ -1,13 +1,19 @@
 export class Material {
-  public materialID: number;
-  public materialName: string;
+  get materialName(): string {
+    return this._materialName;
+  }
+  get materialID(): number {
+    return this._materialID;
+  }
+  private _materialID: number;
+  private _materialName: string;
 
   setMaterialID(id: number) {
-    this.materialID = id;
+    this._materialID = id;
   }
 
   setMaterialName(name: string) {
-    this.materialName = name
+    this._materialName = name
   }
 }
 

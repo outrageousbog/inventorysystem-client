@@ -1,13 +1,21 @@
 export class Brand {
-  public brandID: string;
-  public brandName: string;
+
+  private _brandID: string;
+  private _brandName: string;
 
   setId(id: string) {
-    this.brandID = id;
+    this._brandID = id;
   }
 
   setName(name: string) {
-    this.brandName = name;
+    this._brandName = name;
+  }
+
+  get brandID(): string {
+    return this._brandID;
+  }
+  get brandName(): string {
+    return this._brandName;
   }
 }
 

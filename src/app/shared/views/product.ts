@@ -1,38 +1,66 @@
 export class Product {
-  productID: string = '';
-  productSKU: string = '';
-  productName: string = '';
-  productBrand: string = '';
-  productPrice: string = '';
-  productVariableCost: string = '';
-  productQuantity: number;
+
+  private _productID: string = '';
+  private _productSKU: string = '';
+  private _productName: string = '';
+  private _productBrand: string = '';
+  private _productPrice: string = '';
+  private _productVariableCost: string = '';
+  private _productQuantity: number;
+
+  get productID() {
+    return this._productID;
+  }
+
+  get productSKU() {
+    return this._productSKU;
+  }
+
+  get productName() {
+    return this._productName
+  }
+
+  get productBrand() {
+    return this._productBrand
+  }
+
+  get productQuantity(): number {
+    return this._productQuantity;
+  }
+  get productVariableCost(): string {
+    return this._productVariableCost;
+  }
+  get productPrice(): string {
+    return this._productPrice;
+  }
+
 
   setSku(sku: string) {
-    this.productSKU = sku;
+    this._productSKU = sku;
   }
 
   setID(ID: string) {
-    this.productID = ID;
+    this._productID = ID;
   }
 
   setName(name: string) {
-    this.productName = name;
+    this._productName = name;
   }
 
   setBrand(brand: string) {
-    this.productBrand = brand;
+    this._productBrand = brand;
   }
 
   setPrice(price: string) {
-    this.productPrice = price;
+    this._productPrice = price;
   }
 
   setVariableCosts(variableCosts: string) {
-    this.productVariableCost=variableCosts;
+    this._productVariableCost=variableCosts;
   }
 
   setAmount(amount: number) {
-    this.productQuantity = amount;
+    this._productQuantity = amount;
   }
 }
 
