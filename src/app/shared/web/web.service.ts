@@ -71,4 +71,8 @@ export class WebService {
   createMaterial(material: FormGroup) {
     return this.http.post(this.configURL + 'material', material);
   }
+
+  updateQuantity(form: any) {
+    return this.http.put(this.configURL + 'product/quantities', form);
+  }
 }

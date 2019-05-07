@@ -5,7 +5,7 @@ import {AuthService} from '../auth.service';
 import {catchError, retry} from 'rxjs/operators';
 
 @Injectable()
-export class TokenInterceptor implements HttpInterceptor {
+export class CustomHttpInterceptor implements HttpInterceptor {
 
   constructor(private auth: AuthService) {}
 
