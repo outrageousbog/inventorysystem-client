@@ -39,10 +39,6 @@ export class LoginComponent implements OnInit {
             localStorage.setItem(`token`, data.token);
           this.router.navigate(['/main']);
           this.authService.login();
-        },
-        (error: ErrorHandler) => {
-          window.alert('Wrong user credentials.');
-          console.log('An error occured: ' + error.handleError)
         }
       );
   }

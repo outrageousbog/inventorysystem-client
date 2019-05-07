@@ -22,10 +22,7 @@ export class WebService {
   }
 
   validateUser(user: UserService) {
-    return this.http.post(this.configURL + 'session', user)
-      .pipe(
-        retry(1)
-      );
+    return this.http.post(this.configURL + 'session', user);
   }
 
   getBrands() {
