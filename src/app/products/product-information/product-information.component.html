@@ -1,15 +1,18 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 <div class="d-flex justify-content-center">
   <div class="card" style="width: 25rem;">
     <h5 class="card-header">Product information</h5>
     <div class="card-body">
       <h3 class="card-title">{{product.productName}}</h3>
+
       <div>
         <p><b>Brand:</b> {{ product.productBrand }}</p>
         <p><b>ID:</b> {{product.productID}}</p>
         <p><b>SKU:</b> {{product.productSKU}}</p>
         <p><b>Price:</b> {{product.productPrice}}</p>
         <p><b>Variable Costs:</b> {{product.productVariableCost}}</p>
-        <p><b>Quantity:</b> {{ product.productQuantity }}</p>
+        <p *ngIf="editMode === false; else changeQuantity"><b>Quantity:</b> {{ product.productQuantity }}</p>
         <hr>
         <h4>Materials</h4>
         <p *ngFor="let material of materials; let i = index">
@@ -26,10 +29,29 @@
         </div>
       </div>
       <br>
-      <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center" *ngIf="editMode === false; else saveBlock">
         <button class="btn btn-primary" style="margin: 10px" (click)="onBack()">Back</button>
-        <button class="btn btn-danger"  style="margin: 10px;" [disabled]="isDeleted" (click)="deleteProduct()">Delete</button>
+        <button class="btn btn-success" style="margin: 10px" (click)="onEdit()"><i class="material-icons">border_color</i></button>
+        <button class="btn btn-danger" style="margin: 10px;" [disabled]="isDeleted" (click)="deleteProduct()">Delete
+        </button>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #saveBlock>
+  <div class="d-flex justify-content-center">
+    <button class="btn btn-danger" style="margin: 10px" (click)="onCancel()"><i class="material-icons">cancel</i> Cancel</button>
+    <button class="btn btn-success" type="submit" style="margin: 10px"><i class="material-icons">save</i> Save</button>
+  </div>
+</ng-template>
+
+<ng-template #changeQuantity>
+  <p><b>Quantity:</b> </p>
+  <form [formGroup]="editForm" (ngSubmit)="onSave()">
+      <input
+        type="number"
+        class="form-control"
+        formControlName="productQuantity">
+  </form>
+</ng-template>

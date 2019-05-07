@@ -39,7 +39,10 @@ const appRoutes: Routes = [
         children: [
           {path: '', pathMatch: 'full', component: ProductListComponent},
           {path: 'create', component: CreateProductComponent},
-          {path: ':id', component: ProductInformationComponent,resolve: {product: ProductResolver, material: MaterialResolver}},
+          {
+            path: ':id', component: ProductInformationComponent,
+            resolve: {product: ProductResolver, material: MaterialResolver}
+          },
         ]
       },
       {
@@ -48,11 +51,14 @@ const appRoutes: Routes = [
         children: [
           {path: '', pathMatch: 'full', component: BrandListComponent},
           {path: 'create', component: CreateBrandComponent},
-          {path: ':id', component: BrandInformationComponent, resolve: {brandProduct: BrandInformationResolver}},
+          {
+            path: ':id', component: BrandInformationComponent,
+            resolve: {brandProduct: BrandInformationResolver}
+          },
         ]
       },
       {
-        path:'materials',
+        path: 'materials',
         component: MaterialsComponent,
         children: [
           {path: '', pathMatch: 'full', component: MaterialsListComponent},

@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 import {Location} from '@angular/common';
 import {ProductService} from '../product-service';
 import {Material} from '../../shared/views/material';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-product-information',
@@ -16,6 +17,8 @@ export class ProductInformationComponent implements OnInit {
   product: Product;
   materials: Material[];
   isDeleted = false;
+  editMode = false;
+  editForm: FormGroup;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
@@ -36,6 +39,10 @@ export class ProductInformationComponent implements OnInit {
           console.log(this.materials);
         }
       );
+
+    this.editForm = new FormGroup({
+      'productQuantity': new FormControl(this.product.productQuantity, [Validators.required])
+    });
   }
 
 
@@ -63,5 +70,18 @@ export class ProductInformationComponent implements OnInit {
   onClose() {
     this.isDeleted = false;
     this.onBack();
+  }
+
+  onEdit() {
+    this.editMode = true;
+  }
+
+  onCancel() {
+    this.editMode = false;
+  }
+
+  onSave() {
+    this.editMode = false;
+    this.product.setAmount(this.editForm.controls.productQuantity.value);
   }
 }
