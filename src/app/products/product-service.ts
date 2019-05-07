@@ -46,6 +46,7 @@ export class ProductService {
     let productSearchBuilder = new ProductSearchBuilder();
     let search = formGroup.controls.search.value;
     let onlyStock = formGroup.controls.onlyStock.value;
+
     if (search != null) {
       productSearchBuilder.withContains('productName', search)
     }
@@ -72,14 +73,13 @@ export class ProductService {
   }
 
   getMaterialFromJson(materialObject: Material[]) {
-    let tempMat: Material[] = materialObject.map(
+    return materialObject.map(
       (mat) => {
         return new MaterialBuilder()
           .withName(mat.materialName)
           .build()
       }
     );
-    return tempMat;
   }
 
   updateQuantity(form: FormGroup) {

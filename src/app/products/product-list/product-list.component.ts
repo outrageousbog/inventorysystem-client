@@ -13,7 +13,7 @@ import {ProductService} from '../product-service';
 })
 export class ProductListComponent implements OnInit {
   productList: Product[] = [];
-  protected productSearch: FormGroup;
+  productSearch: FormGroup;
   private searchComplete: boolean = false;
 
   constructor(private router: Router,
@@ -23,7 +23,7 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.productSearch = new FormGroup({
-      'search': new FormControl(null, [Validators.required]),
+      'search': new FormControl(null),
       'onlyStock': new FormControl(false)
     });
 
@@ -46,10 +46,6 @@ export class ProductListComponent implements OnInit {
   }
 
   onSubmit() {
-    this.searchForProducts();
-  }
-
-  private searchForProducts() {
     this.productService.search(this.productSearch);
   }
 
