@@ -30,8 +30,7 @@ export class ProductService {
                 .build();
             }
           );
-          this.productsSearchObs.next(this.productsArray);
-          console.log(this.productsArray);
+          this.productsSearchObs.next(this.getProductsArray());
         },
         (error: Data) => {
           console.log(error);

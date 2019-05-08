@@ -39,7 +39,7 @@
                class="form-control">
         <span class="help-block"
               *ngIf="!productForm.get('productQuantity').valid && productForm.get('productQuantity').touched">
-          <span *ngIf="productForm.get('productQuantity').errors['minimumValue']" style="color: red;">
+          <span *ngIf="productForm.get('productQuantity').errors['minimumZeroValue']" style="color: red;">
             Quantity must be a positive integer.
           </span>
         </span>
@@ -82,6 +82,12 @@
                type="number"
                id="startFactor"
                class="form-control">
+        <span class="help-block"
+        *ngIf="!productForm.get('productStartFactor').valid && productForm.get('productStartFactor').touched">
+          <span *ngIf="productForm.get('productStartFactor').errors['aboveZero']" style="color: red">
+            Must be more than 0.
+          </span>
+        </span>
       </div>
       <div class="col">
         <label for="growthFactor">Growth Factor</label>
@@ -89,6 +95,12 @@
                type="number"
                id="growthFactor"
                class="form-control">
+        <span class="help-block"
+              *ngIf="!productForm.get('productGrowthFactor').valid && productForm.get('productGrowthFactor').touched">
+          <span *ngIf="productForm.get('productGrowthFactor').errors['aboveZero']" style="color: red">
+            Must be more than 0.
+          </span>
+        </span>
       </div>
 
     </div>

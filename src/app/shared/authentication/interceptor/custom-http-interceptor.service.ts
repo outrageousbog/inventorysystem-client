@@ -25,7 +25,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
             //client side errors!
             errorMessage = `Error: ${error.error.message}`;
           } else {
-            //server sude errors!
+            //server side errors!
             errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`
           }
           window.alert(errorMessage);
