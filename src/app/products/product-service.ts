@@ -30,7 +30,7 @@ export class ProductService {
                 .build();
             }
           );
-          this.productsSearchObs.next(this.productsArray)
+          this.productsSearchObs.next(this.productsArray);
           console.log(this.productsArray);
         },
         (error: Data) => {
@@ -69,7 +69,7 @@ export class ProductService {
           .build();
       }
     );
-    return tempProd[0];
+      return tempProd[0];
   }
 
   getMaterialFromJson(materialObject: Material[]) {

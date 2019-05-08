@@ -19,6 +19,7 @@ export class ProductInformationComponent implements OnInit {
   isDeleted = false;
   editMode = false;
   editForm: FormGroup;
+  loaded = false;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
@@ -29,20 +30,18 @@ export class ProductInformationComponent implements OnInit {
     console.log('is loaded');
     this.route.data
       .subscribe(
-        (data: Data) => {
-          let productObject = data['product'];
-          let materialObject = data['material'];
-          console.log(data);
-          this.product = this.productService.getProductFromJson(productObject);
-          this.materials = this.productService.getMaterialFromJson(materialObject);
-          console.log(this.materials);
+        (data) => {
+          if (data['product'].length > 0){
+            let productObject = data['product'];
+            let materialObject = data['material'];
+            this.product = this.productService.getProductFromJson(productObject);
+            this.materials = this.productService.getMaterialFromJson(materialObject);
+            this.initForm();
+            this.loaded = true;
+          }
+
         }
       );
-
-    this.editForm = new FormGroup({
-      'productID': new FormControl(this.product.productID),
-      'productQuantity': new FormControl(this.product.productQuantity, [Validators.required])
-    });
 
     this.productService.deleteEmitter
       .subscribe(
@@ -52,12 +51,18 @@ export class ProductInformationComponent implements OnInit {
       )
   }
 
+  private initForm() {
+    this.editForm = new FormGroup({
+      'productID': new FormControl(this.product.productID),
+      'productQuantity': new FormControl(this.product.productQuantity, [Validators.required])
+    });
+  }
+
 
 
   deleteProduct() {
     if (confirm(`Are you sure, you want to delete ${this.product.productName}`)){
         this.productService.deleteProduct(this.product.productID);
-      console.log(this.product.productID);
     }
   }
 
@@ -81,7 +86,6 @@ export class ProductInformationComponent implements OnInit {
   onSave() {
     this.editMode = false;
     this.productService.updateQuantity(this.editForm.value);
-    console.log(this.editForm.controls);
   }
 
 }
