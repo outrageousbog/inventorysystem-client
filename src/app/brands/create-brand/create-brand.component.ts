@@ -20,13 +20,13 @@ export class CreateBrandComponent implements OnInit {
 
   ngOnInit() {
     this.brandForm = new FormGroup({
-      'brand' : new FormControl(null, [Validators.required])
+      'productBrandName' : new FormControl(null, [Validators.required])
     })
   }
 
   onSubmit() {
     let brandSearch = new BrandBuilder();
-    this.webService.createBrand(brandSearch.withName(this.brandForm.controls.brand.value).build())
+    this.webService.createBrand(this.brandForm.value)
       .subscribe(
         () => {
           this.brandForm.reset();

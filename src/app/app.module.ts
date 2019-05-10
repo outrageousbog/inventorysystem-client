@@ -32,6 +32,7 @@ import {BrandService} from './brands/brand-service';
 import {ProductResolver} from './shared/resolvers/product-resolver';
 import {MaterialResolver} from './shared/resolvers/material-resolver';
 import {BrandInformationResolver} from './shared/resolvers/brand-information.resolver';
+import {BrandResolver} from './shared/resolvers/brand-resolver';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import {BrandInformationResolver} from './shared/resolvers/brand-information.res
     MaterialResolver,
     MaterialService,
     BrandInformationResolver,
+    BrandResolver,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: CustomHttpInterceptor,

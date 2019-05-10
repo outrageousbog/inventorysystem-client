@@ -60,7 +60,11 @@ export class WebService {
     return this.http.delete(this.configURL + 'product/' + id);
   }
 
-  createBrand(brand: Brand) {
+  deleteBrand(brandID: any) {
+    return this.http.delete(this.configURL + 'product/brands/', brandID);
+  }
+
+  createBrand(brand: any) {
     return this.http.post(this.configURL + 'product/brands', brand);
   }
 
@@ -74,5 +78,9 @@ export class WebService {
 
   updateQuantity(form: any) {
     return this.http.put(this.configURL + 'product/quantities', form);
+  }
+
+  updateProduct(form: any) {
+    return this.http.put(this.configURL + 'product', form);
   }
 }

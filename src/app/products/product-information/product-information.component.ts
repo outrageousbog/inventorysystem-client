@@ -7,11 +7,13 @@ import {Location} from '@angular/common';
 import {ProductService} from '../product-service';
 import {Material} from '../../shared/views/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {CreateProductService} from '../create-product/create-product.service';
 
 @Component({
   selector: 'app-product-information',
   templateUrl: './product-information.component.html',
-  styleUrls: ['./product-information.component.css']
+  styleUrls: ['./product-information.component.css'],
+  providers: [CreateProductService]
 })
 export class ProductInformationComponent implements OnInit {
   product: Product;
@@ -23,7 +25,9 @@ export class ProductInformationComponent implements OnInit {
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
-              private location: Location) {
+              private router: Router,
+              private location: Location,
+              private createProductService: CreateProductService) {
   }
 
   ngOnInit() {
@@ -48,13 +52,27 @@ export class ProductInformationComponent implements OnInit {
         () => {
           this.isDeleted = true;
         }
-      )
+      );
+
+    this.productService.productUpdateSub
+      .subscribe(
+        (data: Product) => {
+          this.product = data;
+        }
+      );
   }
 
   private initForm() {
     this.editForm = new FormGroup({
-      'productID': new FormControl(this.product.productID),
-      'productQuantity': new FormControl(this.product.productQuantity, [Validators.required])
+      productID: new FormControl(this.product.productID),
+      productQuantity: new FormControl(this.product.productQuantity, [Validators.required]),
+      productName: new FormControl(this.product.productName,[Validators.required, Validators.pattern(/^[\w\s]+$/i)]),
+      productBrand: new FormControl(this.product.productBrand,[Validators.required]),
+      productStartFactor: new FormControl(this.product.productStartFactor),
+      productGrowthFactor: new FormControl(this.product.productGrowthFactor),
+      productSKU: new FormControl(this.product.productSKU, [Validators.required, Validators.pattern(/^[0-9]{8}$/)]),
+      productPrice: new FormControl(this.product.productPrice,[Validators.required, this.createProductService.minimumZeroValue.bind(this)]),
+      productVariableCost: new FormControl(this.product.productVariableCost,[Validators.required, this.createProductService.minimumValue.bind(this)]),
     });
   }
 
@@ -85,7 +103,9 @@ export class ProductInformationComponent implements OnInit {
 
   onSave() {
     this.editMode = false;
-    this.productService.updateQuantity(this.editForm.value);
+    console.log('saving');
+    console.log(this.editForm.value);
+    this.productService.updateProduct(this.editForm.value);
   }
 
 }

@@ -10,6 +10,7 @@ import {FormGroup} from '@angular/forms';
 @Injectable()
 export class ProductService {
   productsSearchObs = new Subject();
+  productUpdateSub = new Subject();
   private product = new Product();
   private productsArray: Product[] = [];
   deleteEmitter = new EventEmitter();
@@ -65,10 +66,26 @@ export class ProductService {
           .withPrice(product.productPrice)
           .withID(product.productID)
           .withAmount(product.productQuantity)
+          .withGrowthFactor(product.productGrowthFactor)
+          .withStartFactor(product.productStartFactor)
           .build();
       }
     );
       return tempProd[0];
+  }
+
+  private createProduct(product: Product) {
+    return new ProductBuilder()
+      .withVariableCosts(product.productVariableCost)
+      .withBrand(product.productBrand)
+      .withName(product.productName)
+      .withSKU(product.productSKU)
+      .withPrice(product.productPrice)
+      .withID(product.productID)
+      .withAmount(product.productQuantity)
+      .withGrowthFactor(product.productGrowthFactor)
+      .withStartFactor(product.productStartFactor)
+      .build();
   }
 
   getMaterialFromJson(materialObject: Material[]) {
@@ -81,11 +98,11 @@ export class ProductService {
     );
   }
 
-  updateQuantity(form: FormGroup) {
-    this.webService.updateQuantity(form)
+  updateProduct(product: any) {
+    this.webService.updateProduct(product)
       .subscribe(
-        (data: Data) => {
-          console.log(data);
+        () => {
+          this.productUpdateSub.next(this.createProduct(product));
         }
       )
   }

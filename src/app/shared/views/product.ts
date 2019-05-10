@@ -1,5 +1,6 @@
 export class Product {
 
+
   private _productID: string = '';
   private _productSKU: string = '';
   private _productName: string = '';
@@ -7,6 +8,15 @@ export class Product {
   private _productPrice: string = '';
   private _productVariableCost: string = '';
   private _productQuantity: number;
+  private _productGrowthFactor: number;
+  private _productStartFactor: number;
+
+  get productStartFactor(): number {
+    return this._productStartFactor;
+  }
+  get productGrowthFactor(): number {
+    return this._productGrowthFactor;
+  }
 
   get productID() {
     return this._productID;
@@ -62,6 +72,14 @@ export class Product {
   setAmount(amount: number) {
     this._productQuantity = amount;
   }
+
+  setGrowthFactor(amount: number) {
+    this._productGrowthFactor = amount;
+  }
+
+  setStartFactor(amount: number) {
+    this._productStartFactor = amount;
+  }
 }
 
 export class ProductBuilder {
@@ -99,6 +117,16 @@ export class ProductBuilder {
 
   withAmount(amount: number) {
     this.product.setAmount(amount);
+    return this;
+  }
+
+  withGrowthFactor(factor: number) {
+    this.product.setGrowthFactor(factor)
+    return this;
+  }
+
+  withStartFactor(factor: number) {
+    this.product.setStartFactor(factor);
     return this;
   }
 

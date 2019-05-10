@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import {ActivatedRoute, Data, Router} from '@angular/router';
 import {BrandService} from '../brand-service';
 import {Product} from '../../shared/views/product';
+import {Brand} from '../../shared/views/brand';
 
 @Component({
   selector: 'app-brand-information',
@@ -12,7 +13,9 @@ import {Product} from '../../shared/views/product';
 export class BrandInformationComponent implements OnInit {
   productList: Product[];
   moreThanZero = false;
-  brandName: string;
+  brandExist = false;
+  brand: Brand;
+  isDeleted: boolean = true;
 
   constructor(private location: Location,
               private route: ActivatedRoute,
@@ -24,23 +27,39 @@ export class BrandInformationComponent implements OnInit {
       .subscribe(
         (data: Data) => {
           let productObject = data['brandProduct'];
+          let brandObject = data['brand'];
           this.productList = this.brandService.getProductsFromJson(productObject);
+          this.brand = this.brandService.getBrandFromJson(brandObject);
+          (this.brand) ? this.setBrand() : null;
+          this.productList.length > 0 ? this.moreThanZero = true : null;
+        }
+      );
 
-          this.productList.length > 0 ? this.setInitialValues() : null;
+    this.brandService.brandsDeleteSub
+      .subscribe(
+        () => {
+          this.isDeleted = true;
         }
       )
   }
-
-  private setInitialValues() {
-    this.moreThanZero = true;
-    this.brandName = this.productList[0].productBrand;
+  private setBrand() {
+    this.brandExist = true;
+    this.isDeleted = false;
   }
 
   onBack() {
     this.location.back();
   }
 
+  onDelete() {
+    this.brandService.deleteBrand(this.brand.brandID);
+  }
+
   onProductClick(productID: string) {
     this.router.navigate(['/main/products/'+productID]);
+  }
+
+  allowedToDelete() {
+    return this.brandExist && !this.moreThanZero && !this.isDeleted;
   }
 }

@@ -4,7 +4,7 @@ import {Brand, BrandBuilder} from '../../shared/views/brand';
 import {Subject} from 'rxjs';
 import {Error} from 'tslint/lib/error';
 import {Material, MaterialBuilder} from '../../shared/views/material';
-import {FormGroup} from '@angular/forms';
+import {AbstractControl, FormGroup} from '@angular/forms';
 import {Data} from '@angular/router';
 
 @Injectable()
@@ -60,5 +60,22 @@ export class CreateProductService {
           console.log(data);
         }
       )
+  }
+
+  minimumZeroValue(control: AbstractControl): {[key: string]: boolean} | null {
+    if (Number(control.value) < 0) {
+      return {
+        'minimumQuantity': true
+      };
+    }
+    return null;
+  }
+   minimumValue(control: AbstractControl): {[key: string]: boolean} | null {
+    if (Number(control.value) < 1) {
+      return {
+        'aboveZero': true
+      };
+    }
+    return null;
   }
 }

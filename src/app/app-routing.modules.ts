@@ -19,6 +19,7 @@ import {MaterialsListComponent} from './materials/materials-list/materials-list.
 import {MaterialResolver} from './shared/resolvers/material-resolver';
 import {BrandInformationComponent} from './brands/brand-information/brand-information.component';
 import {BrandInformationResolver} from './shared/resolvers/brand-information.resolver';
+import {BrandResolver} from './shared/resolvers/brand-resolver';
 
 const appRoutes: Routes = [
   {
@@ -53,7 +54,7 @@ const appRoutes: Routes = [
           {path: 'create', component: CreateBrandComponent},
           {
             path: ':id', component: BrandInformationComponent,
-            resolve: {brandProduct: BrandInformationResolver}
+            resolve: {brandProduct: BrandInformationResolver, brand: BrandResolver}
           },
         ]
       },

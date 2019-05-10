@@ -4,16 +4,15 @@
   <div class="card" style="width: 25rem;">
     <h5 class="card-header">Product information</h5>
     <div class="card-body">
-      <div *ngIf="loaded; else notLoaded">
-        <h3 class="card-title">{{product.productName}}</h3>
-
-
-        <p><b>Brand:</b> {{ product.productBrand}}</p>
-        <p><b>ID:</b> {{product.productID}}</p>
-        <p><b>SKU:</b> {{product.productSKU}}</p>
-        <p><b>Price:</b> {{product.productPrice}}</p>
-        <p><b>Variable Costs:</b> {{product.productVariableCost}}</p>
-        <p *ngIf="editMode === false; else changeQuantity"><b>Quantity:</b> {{ product.productQuantity }}</p>
+      <div *ngIf="loaded; else notLoaded"><h3 class="card-title">{{product.productName}}</h3>
+        <div *ngIf="editMode === false; else editProduct">
+          <p><b>Brand:</b> {{ product.productBrand}}</p>
+          <p><b>ID:</b> {{product.productID}}</p>
+          <p><b>SKU:</b> {{product.productSKU}}</p>
+          <p><b>Price:</b> {{product.productPrice}}</p>
+          <p><b>Variable Costs:</b> {{product.productVariableCost}}</p>
+          <p><b>Quantity:</b> {{ product.productQuantity }}</p>
+        </div>
         <hr>
         <h4>Materials</h4>
         <p *ngFor="let material of materials; let i = index">
@@ -51,17 +50,6 @@
     </button>
   </div>
 </ng-template>
-
-<ng-template #changeQuantity>
-  <p><b>Quantity:</b></p>
-  <form [formGroup]="editForm">
-    <input
-      type="number"
-      class="form-control"
-      formControlName="productQuantity">
-  </form>
-</ng-template>
-
 <ng-template #notLoaded>
   <h3 class="card-title">
     Awkward.
@@ -71,4 +59,30 @@
 
     <i class="material-icons" style="font-size: 100px">sentiment_very_dissatisfied</i>
   </div>
+</ng-template>
+<ng-template #editProduct>
+  <form [formGroup]="editForm" (ngSubmit)="onSave()">
+    <p><b>Brand:</b> {{ product.productBrand }}</p>
+    <p><b>ID:</b> {{ product.productID }}</p>
+    <p><b>SKU:</b></p>
+    <input
+    type="number"
+    class="form-control"
+    formControlName="productSKU">
+    <p><b>Price:</b></p>
+    <input
+      type="number"
+      class="form-control"
+      formControlName="productPrice">
+    <p><b>Variable Costs:</b></p>
+    <input
+      type="number"
+      class="form-control"
+      formControlName="productVariableCost">
+    <p><b>Quantity:</b></p>
+    <input
+      type="number"
+      class="form-control"
+      formControlName="productQuantity">
+  </form>
 </ng-template>
