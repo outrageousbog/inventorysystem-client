@@ -12,7 +12,8 @@ import {retry} from 'rxjs/operators';
   }
 )
 export class WebService {
-  private configURL = 'http://localhost:5000/api/';
+  // private configURL = 'http://localhost:5000/api/';
+  private configURL = 'http://ec2-13-53-207-45.eu-north-1.compute.amazonaws.com:7119/api/';
 
   constructor(private http: HttpClient) {
   }
