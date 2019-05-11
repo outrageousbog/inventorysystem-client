@@ -14,12 +14,12 @@ import {ProductService} from '../product-service';
 export class ProductListComponent implements OnInit {
   productList: Product[] = [];
   productSearch: FormGroup;
-  private searchComplete: boolean = false;
+  searchComplete: boolean = false;
 
   constructor(private router: Router,
               private productService: ProductService,
               private route: ActivatedRoute,
-              private pageService: PaginatorService) { }
+              public pageService: PaginatorService) { }
 
   ngOnInit() {
     this.productSearch = new FormGroup({

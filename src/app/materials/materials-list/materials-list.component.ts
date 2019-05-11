@@ -12,13 +12,12 @@ import {PaginatorService} from '../../shared/pages/paginator.service';
   providers: [PaginatorService]
 })
 export class MaterialsListComponent implements OnInit {
-  protected materialList: Material[];
-  protected materialSearch: FormGroup;
+  materialList: Material[];
+  materialSearch: FormGroup;
   searchComplete: boolean = false;
 
   constructor(private materialService: MaterialService,
-              private router: Router,
-              private pageService: PaginatorService) {}
+              public pageService: PaginatorService) {}
 
 
   ngOnInit() {

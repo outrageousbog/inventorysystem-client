@@ -13,7 +13,7 @@ import {Location} from '@angular/common';
 export class CreateBrandComponent implements OnInit {
 
   brandForm: FormGroup;
-  protected createComplete = false;
+  createComplete = false;
 
   constructor(private webService: WebService,
               private location: Location) {}

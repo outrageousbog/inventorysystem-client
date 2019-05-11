@@ -13,14 +13,14 @@ import {BrandService} from '../brand-service';
 })
 export class BrandListComponent implements OnInit {
 
-  protected brandList: Brand[];
-  protected brandSearch: FormGroup;
+  brandList: Brand[];
+  brandSearch: FormGroup;
   searchComplete: boolean = false;
 
   constructor(private brandService: BrandService,
               private router: Router,
               private route: ActivatedRoute,
-              private pageService: PaginatorService) {}
+              public pageService: PaginatorService) {}
 
   ngOnInit() {
     this.brandSearch = new FormGroup({
