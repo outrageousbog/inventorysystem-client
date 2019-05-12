@@ -7,11 +7,11 @@
           <input
             type="text"
             id="brand"
-            formControlName="brand"
+            formControlName="brandName"
             placeholder="Apple"
             class="form-control">
-          <span class="help-block" *ngIf="!brandForm.get('brand').valid && brandForm.get('brand').touched">
-          <span *ngIf="brandForm.get('brand').errors['required']">
+          <span class="help-block" *ngIf="!brandForm.get('brandName').valid && brandForm.get('brandName').touched">
+          <span *ngIf="brandForm.get('brandName').errors['required']">
             This field is required
           </span>
         </span>

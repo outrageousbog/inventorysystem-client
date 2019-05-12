@@ -2,18 +2,17 @@ import {Injectable} from '@angular/core';
 import {WebService} from '../../shared/web/web.service';
 import {Brand, BrandBuilder} from '../../shared/views/brand';
 import {Subject} from 'rxjs';
-import {Error} from 'tslint/lib/error';
 import {Material, MaterialBuilder} from '../../shared/views/material';
 import {AbstractControl, FormGroup} from '@angular/forms';
-import {Data} from '@angular/router';
+import {ProductSearchBuilder} from '../../shared/search/products/product.search';
 
 @Injectable()
 export class CreateProductService {
   private brandArray: Brand[];
   private materialArray: Material[];
-
   public materialSubject = new Subject();
   public brandSubject = new Subject();
+  public createdSubject = new Subject();
   constructor(private webService: WebService) {}
 
   getBrands() {
@@ -54,6 +53,9 @@ export class CreateProductService {
     this.webService.createProduct(brand)
       .subscribe(
         () => {
+          const query = new ProductSearchBuilder().build().query;
+          this.webService.getProductsByQuery(query)
+          this.createdSubject.next();
         }
       )
   }

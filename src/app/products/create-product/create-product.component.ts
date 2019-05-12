@@ -3,6 +3,7 @@ import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validat
 import {CreateProductService} from './create-product.service';
 import {Brand} from '../../shared/views/brand';
 import {Material} from '../../shared/views/material';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-create-product',
@@ -14,10 +15,13 @@ export class CreateProductComponent implements OnInit {
   productForm: FormGroup;
   brandList: Brand[];
   materialList: Material[];
+  createdCompleted = false;
+  invalidOrder = false;
   readonly maxToAdd = 5;
 
   constructor(private createService: CreateProductService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private location: Location) { }
 
   ngOnInit() {
     this.productForm = new FormGroup({
@@ -29,7 +33,7 @@ export class CreateProductComponent implements OnInit {
       productVariableCost: new FormControl(null,[Validators.required, this.createService.minimumValue.bind(this)]),
       productGrowthFactor: new FormControl(null,[Validators.required, this.createService.minimumValue.bind(this)]),
       productsInsertMaterials: this.formBuilder.array([]),
-      productQuantity: new FormControl(null, [this.createService.minimumZeroValue.bind(this)])
+      productQuantity: new FormControl(null, [Validators.required, this.createService.minimumZeroValue.bind(this)])
     });
 
     this.createService.materialSubject
@@ -46,13 +50,20 @@ export class CreateProductComponent implements OnInit {
         }
       );
 
+    this.createService.createdSubject
+      .subscribe(
+        () => {
+          this.createdCompleted = true;
+          this.createdTimer();
+        }
+      );
 
     this.createService.getBrands();
     this.createService.getMaterials();
   }
 
   onSubmit() {
-    this.createService.createProduct(this.productForm.value);
+    (this.checkForOrder()) ? this.createService.createProduct(this.productForm.value) : this.displayError();
   }
 
   /**
@@ -74,6 +85,19 @@ export class CreateProductComponent implements OnInit {
     this.materialForms.removeAt(index);
   }
 
+
+
+  createdTimer() {
+    setTimeout(
+      () => {
+        this.createdCompleted = false;
+      }, 5000
+    )
+  }
+
+  onClose() {
+    this.location.back();
+  }
   /**
    * VALIDATORS
    */
@@ -83,5 +107,21 @@ export class CreateProductComponent implements OnInit {
       return {'maximumError': true}
     }
     return null;
+  }
+
+  checkForOrder() {
+    const start = this.productForm.controls.productStartFactor.value;
+    const variable = this.productForm.controls.productVariableCost.value;
+    const growth = this.productForm.controls.productGrowthFactor.value;
+    return(+start > +variable && +variable > +growth);
+  }
+
+  private displayError() {
+    this.invalidOrder = true;
+    setTimeout(
+      () => {
+        this.invalidOrder = false;
+      }, 7500
+    )
   }
 }

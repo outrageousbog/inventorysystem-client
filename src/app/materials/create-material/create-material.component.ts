@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {WebService} from '../../shared/web/web.service';
+import {MaterialSearchBuilder} from '../../shared/search/materials/material.search';
 
 @Component({
   selector: 'app-create-material',
@@ -26,6 +27,8 @@ export class CreateMaterialComponent implements OnInit {
         () => {
           this.materialForm.reset();
           this.searchComplete = true;
+          const query = new MaterialSearchBuilder().build().query;
+          this.webService.getMaterialsByQuery(query);
         },
       );
   }
