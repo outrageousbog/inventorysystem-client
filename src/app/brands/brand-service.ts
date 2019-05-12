@@ -69,6 +69,8 @@ export class BrandService {
       .subscribe(
         () => {
           this.brandsDeleteSub.next();
+          const query = new BrandSearchBuilder().build().query;
+          this.searchBrands(query);
         }
       );
   }

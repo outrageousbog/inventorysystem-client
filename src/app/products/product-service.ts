@@ -113,6 +113,8 @@ export class ProductService {
         (data: Data) => {
           console.log(data);
           this.deleteEmitter.emit();
+          const query = new ProductSearchBuilder().build().query;
+          this.searchProducts(query);
         },
         (error: Data) => {
           console.log(error);

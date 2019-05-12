@@ -65,12 +65,12 @@ export class ProductInformationComponent implements OnInit {
   private initForm() {
     this.editForm = new FormGroup({
       productID: new FormControl(this.product.productID),
-      productQuantity: new FormControl(this.product.productQuantity, [Validators.required]),
+      productQuantity: new FormControl(this.product.productQuantity, [Validators.required, this.createProductService.minimumZeroValue.bind(this)]),
       productName: new FormControl(this.product.productName,[Validators.required, Validators.pattern(/^[\w\s]+$/i)]),
       productBrand: new FormControl(this.product.productBrand,[Validators.required]),
       productStartFactor: new FormControl(this.product.productStartFactor),
       productGrowthFactor: new FormControl(this.product.productGrowthFactor),
-      productSKU: new FormControl(this.product.productSKU, [Validators.required, Validators.pattern(/^[0-9]{8}$/)]),
+      productSKU: new FormControl(this.product.productSKU, [Validators.required, this.createProductService.mustBeEight.bind(this), Validators.pattern(/^[0-9]{8}$/)]),
       productPrice: new FormControl(this.product.productPrice,[Validators.required, this.createProductService.minimumZeroValue.bind(this)]),
       productVariableCost: new FormControl(this.product.productVariableCost,[Validators.required, this.createProductService.minimumValue.bind(this)]),
     });

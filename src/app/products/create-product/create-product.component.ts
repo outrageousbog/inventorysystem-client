@@ -21,7 +21,7 @@ export class CreateProductComponent implements OnInit {
 
   ngOnInit() {
     this.productForm = new FormGroup({
-      productSKU: new FormControl(null, [Validators.required, Validators.pattern(/^[0-9]{8}$/)]),
+      productSKU: new FormControl(null, [Validators.required, this.createService.mustBeEight.bind(this), Validators.pattern(/^[0-9]{8}$/)]),
       productName: new FormControl(null,[Validators.required, Validators.pattern(/^[\w\s]+$/i)]),
       productBrand: new FormControl(null,[Validators.required]),
       productPrice: new FormControl(null,[Validators.required, this.createService.minimumZeroValue.bind(this)]),

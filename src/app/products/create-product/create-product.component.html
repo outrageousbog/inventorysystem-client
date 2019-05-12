@@ -29,6 +29,13 @@
                type="number"
                id="SKU"
                class="form-control">
+        <span class="help-block"
+              *ngIf="!productForm.get('productSKU').valid && productForm.get('productSKU').touched">
+          <span *ngIf="productForm.get('productSKU').errors['notEight']" style="color: red;">
+            SKU must be an 8-digit integer.
+          </span>
+
+        </span>
       </div>
       <div class="col">
         <label for="quantity">Quantity</label>
@@ -40,7 +47,7 @@
         <span class="help-block"
               *ngIf="!productForm.get('productQuantity').valid && productForm.get('productQuantity').touched">
           <span *ngIf="productForm.get('productQuantity').errors['minimumZeroValue']" style="color: red;">
-            Quantity must be a positive integer.
+            Quantity must be a natural integer.
           </span>
         </span>
       </div>

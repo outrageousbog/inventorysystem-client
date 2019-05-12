@@ -38,8 +38,4 @@ export class CreateBrandComponent implements OnInit {
   onClose() {
     this.createComplete = false;
   }
-
-  onReturn() {
-    this.location.back();
-  }
 }

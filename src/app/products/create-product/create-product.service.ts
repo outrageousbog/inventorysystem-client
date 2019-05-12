@@ -56,8 +56,7 @@ export class CreateProductService {
   createProduct(brand: FormGroup) {
     this.webService.createProduct(brand)
       .subscribe(
-        (data: Data) => {
-          console.log(data);
+        () => {
         }
       )
   }
@@ -74,6 +73,15 @@ export class CreateProductService {
     if (Number(control.value) < 1) {
       return {
         'aboveZero': true
+      };
+    }
+    return null;
+  }
+
+  mustBeEight(control: AbstractControl): {[key: string] : boolean} | null {
+    if (String(control.value).length != 8) {
+      return {
+        'notEight': true
       };
     }
     return null;

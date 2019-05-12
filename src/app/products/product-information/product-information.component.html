@@ -32,7 +32,7 @@
       <div class="d-flex justify-content-center" *ngIf="editMode === false; else saveBlock">
         <button class="btn btn-primary" style="margin: 10px" (click)="onBack()">Back</button>
         <div *ngIf="loaded">
-          <button class="btn btn-success" style="margin: 10px" (click)="onEdit()"><i
+          <button class="btn btn-success" style="margin: 10px" [disabled]="isDeleted" (click)="onEdit()"><i
             class="material-icons">border_color</i></button>
           <button class="btn btn-danger" style="margin: 10px;" [disabled]="isDeleted" (click)="deleteProduct()">Delete
           </button>
@@ -46,7 +46,7 @@
   <div class="d-flex justify-content-center">
     <button class="btn btn-danger" style="margin: 10px" (click)="onCancel()"><i class="material-icons">cancel</i> Cancel
     </button>
-    <button class="btn btn-success" style="margin: 10px" (click)="onSave()"><i class="material-icons">save</i> Save
+    <button class="btn btn-success" style="margin: 10px" [disabled]="!editForm.valid" (click)="onSave()"><i class="material-icons">save</i> Save
     </button>
   </div>
 </ng-template>
@@ -66,23 +66,43 @@
     <p><b>ID:</b> {{ product.productID }}</p>
     <p><b>SKU:</b></p>
     <input
-    type="number"
-    class="form-control"
-    formControlName="productSKU">
+      type="number"
+      class="form-control"
+      formControlName="productSKU">
+    <span class="help-block" *ngIf="!editForm.get('productSKU').valid && editForm.get('productSKU').touched">
+      <span *ngIf="editForm.get('productSKU').errors['notEight']" style="color: red;">
+            SKU must be an 8-digit integer.
+      </span>
+    </span>
     <p><b>Price:</b></p>
     <input
       type="number"
       class="form-control"
       formControlName="productPrice">
+    <span class="help-block" *ngIf="!editForm.get('productPrice').valid && editForm.get('productPrice').touched">
+      <span *ngIf="editForm.get('productPrice').errors['minimumQuantity']" style="color: red;">
+            Price must be a natural integer.
+      </span>
+    </span>
     <p><b>Variable Costs:</b></p>
     <input
       type="number"
       class="form-control"
       formControlName="productVariableCost">
+    <span class="help-block" *ngIf="!editForm.get('productVariableCost').valid && editForm.get('productVariableCost').touched">
+      <span *ngIf="editForm.get('productVariableCost').errors['aboveZero']" style="color: red;">
+            Must be more than 0.
+      </span>
+    </span>
     <p><b>Quantity:</b></p>
     <input
       type="number"
       class="form-control"
       formControlName="productQuantity">
+    <span class="help-block" *ngIf="!editForm.get('productQuantity').valid && editForm.get('productQuantity').touched">
+      <span *ngIf="editForm.get('productQuantity').errors['minimumQuantity']" style="color: red;">
+            Quantity must be a natural integer.
+      </span>
+    </span>
   </form>
 </ng-template>
