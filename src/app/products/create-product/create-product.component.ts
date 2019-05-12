@@ -21,13 +21,13 @@ export class CreateProductComponent implements OnInit {
 
   ngOnInit() {
     this.productForm = new FormGroup({
-      productSKU: new FormControl(12345678, [Validators.required, Validators.pattern(/^[0-9]{8}$/)]),
-      productName: new FormControl('Eris E5',[Validators.required, Validators.pattern(/^[\w\s]+$/i)]),
-      productBrand: new FormControl('Presonus',[Validators.required]),
-      productPrice: new FormControl(2000,[Validators.required, this.createService.minimumZeroValue.bind(this)]),
-      productStartFactor: new FormControl(400,[Validators.required, this.createService.minimumValue.bind(this)]),
-      productVariableCost: new FormControl(1500,[Validators.required, this.createService.minimumValue.bind(this)]),
-      productGrowthFactor: new FormControl(20,[Validators.required, this.createService.minimumValue.bind(this)]),
+      productSKU: new FormControl(null, [Validators.required, Validators.pattern(/^[0-9]{8}$/)]),
+      productName: new FormControl(null,[Validators.required, Validators.pattern(/^[\w\s]+$/i)]),
+      productBrand: new FormControl(null,[Validators.required]),
+      productPrice: new FormControl(null,[Validators.required, this.createService.minimumZeroValue.bind(this)]),
+      productStartFactor: new FormControl(null,[Validators.required, this.createService.minimumValue.bind(this)]),
+      productVariableCost: new FormControl(null,[Validators.required, this.createService.minimumValue.bind(this)]),
+      productGrowthFactor: new FormControl(null,[Validators.required, this.createService.minimumValue.bind(this)]),
       productsInsertMaterials: this.formBuilder.array([]),
       productQuantity: new FormControl(null, [this.createService.minimumZeroValue.bind(this)])
     });
