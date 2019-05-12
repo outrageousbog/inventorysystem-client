@@ -35,9 +35,6 @@ export class BrandService {
           );
           this.brandsSearchObs.next(this.brandList);
         },
-        (error: Data) => {
-          console.log(error);
-        }
       );
   }
 
@@ -46,7 +43,6 @@ export class BrandService {
       this.brandSearchBuilder.withContains('brandName', searchValue);
     }
     let searchQuery = this.brandSearchBuilder.build();
-    console.log(this.brandSearchBuilder.build());
     this.searchBrands(searchQuery.query);
   }
 

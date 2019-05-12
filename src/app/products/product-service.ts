@@ -32,10 +32,8 @@ export class ProductService {
             }
           );
           this.productsSearchObs.next(this.getProductsArray());
-        },
-        (error: Data) => {
-          console.log(error);
-        });
+        }
+        );
   }
 
   getProductsArray() {
@@ -110,15 +108,11 @@ export class ProductService {
   deleteProduct(id: string) {
     this.webService.deleteProduct(id)
       .subscribe(
-        (data: Data) => {
-          console.log(data);
+        () => {
           this.deleteEmitter.emit();
           const query = new ProductSearchBuilder().build().query;
           this.searchProducts(query);
         },
-        (error: Data) => {
-          console.log(error);
-        }
       );
   }
 

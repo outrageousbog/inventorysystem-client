@@ -31,9 +31,6 @@ export class MaterialService {
           );
           this.materialSearchSubject.next(this.materialList);
         },
-        (error: Data) => {
-          console.log(error);
-        }
       )
   }
 
@@ -42,7 +39,6 @@ export class MaterialService {
       this.materialSearchBuilder.withContains('materialName', searchValue);
     }
     let searchQuery = this.materialSearchBuilder.build();
-    console.log(this.materialSearchBuilder.build());
     this.searchMaterial(searchQuery.query);
   }
 }

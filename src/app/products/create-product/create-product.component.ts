@@ -36,7 +36,6 @@ export class CreateProductComponent implements OnInit {
       .subscribe(
         (materialArray: Material[]) => {
           this.materialList = materialArray;
-          console.log(this.materialList);
         }
       );
 
@@ -44,7 +43,6 @@ export class CreateProductComponent implements OnInit {
       .subscribe(
         (brandArray: Brand[]) => {
           this.brandList = brandArray;
-          console.log(this.brandList);
         }
       );
 
@@ -54,7 +52,6 @@ export class CreateProductComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.productForm.value);
     this.createService.createProduct(this.productForm.value);
   }
 
@@ -70,9 +67,7 @@ export class CreateProductComponent implements OnInit {
     const materialArray = this.formBuilder.group({
       MaterialName: [null, [Validators.required, this.maximumLimitMaterials.bind(this)]]
     });
-
     this.materialForms.push(materialArray);
-    console.log(this.materialForms.length);
   }
 
   removeMaterial(index: number) {

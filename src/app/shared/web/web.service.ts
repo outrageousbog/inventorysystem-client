@@ -8,19 +8,17 @@ import {FormGroup} from '@angular/forms';
 import {retry} from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
   }
 )
 export class WebService {
-  // private configURL = 'http://localhost:5000/api/';
-  //private configURL = 'http://ec2-13-53-207-45.eu-north-1.compute.amazonaws.com:7119/api/';
   private configURL = 'http://dist.saluton.dk:7119/api/';
 
   constructor(private http: HttpClient) {
   }
 
   getProducts() {
-    return this.http.get<Product[]>(this.configURL + 'products');
+    return this.http.get<Product[]>(this.configURL + 'product');
   }
 
   validateUser(user: UserService) {
@@ -32,7 +30,6 @@ export class WebService {
   }
 
   getBrandsByQuery(query: string) {
-    console.log(this.configURL + 'product/' + query);
     return this.http.get<Brand[]>(this.configURL + 'product/' + query);
   }
 
@@ -41,7 +38,6 @@ export class WebService {
   }
 
   getProductsByQuery(query: string) {
-    console.log(this.configURL + 'product/' + query);
     return this.http.get<Product[]>(this.configURL + 'product/' + query);
   }
 
@@ -49,10 +45,6 @@ export class WebService {
     return this.http.get<Material[]>(this.configURL + 'material/' + query);
   }
 
-  getProduct(query: string) {
-    console.log(this.configURL + 'product/' + query);
-    return this.http.get<Product>(this.configURL + 'product/' + query);
-  }
 
   getProductMaterials(id: number) {
     return this.http.get<Material>(this.configURL + 'material/materialsorders/' + id);
@@ -76,10 +68,6 @@ export class WebService {
 
   createMaterial(material: FormGroup) {
     return this.http.post(this.configURL + 'material', material);
-  }
-
-  updateQuantity(form: any) {
-    return this.http.put(this.configURL + 'product/quantities', form);
   }
 
   updateProduct(form: any) {

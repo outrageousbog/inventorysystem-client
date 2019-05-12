@@ -31,7 +31,6 @@ export class ProductInformationComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('is loaded');
     this.route.data
       .subscribe(
         (data) => {
@@ -103,8 +102,6 @@ export class ProductInformationComponent implements OnInit {
 
   onSave() {
     this.editMode = false;
-    console.log('saving');
-    console.log(this.editForm.value);
     this.productService.updateProduct(this.editForm.value);
   }
 

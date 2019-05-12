@@ -19,14 +19,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/main']);
   }
 
-  onViewClick(path: string) {
-    this.router.navigate(['/main/' + path]);
-  }
-
-  onCreateClick(path: string) {
-    this.router.navigate(['/main/' + path + '/create']);
-  }
-
   onLogout() {
     this.authService.logout();
     this.router.navigate(['/login']);

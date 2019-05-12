@@ -44,7 +44,6 @@ export class MaterialsListComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.materialSearch.controls.search.value);
     this.searchForMaterials();
   }
 

@@ -63,7 +63,6 @@ export class ProductListComponent implements OnInit {
   }
 
   onProductClick(index: number) {
-    console.log(index);
     this.router.navigate(['/main/products/'+index],);
   }
 }

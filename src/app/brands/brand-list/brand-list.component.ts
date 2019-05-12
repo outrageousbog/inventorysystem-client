@@ -46,7 +46,6 @@ export class BrandListComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.brandSearch.controls.search.value);
     this.searchForBrands();
   }
 

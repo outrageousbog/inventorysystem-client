@@ -30,9 +30,6 @@ export class CreateProductService {
           );
           this.brandSubject.next(this.brandArray);
         },
-        (data: Error) => {
-          console.log(data);
-        }
       )
   }
 
