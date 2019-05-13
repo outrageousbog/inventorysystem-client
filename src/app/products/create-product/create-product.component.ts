@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CreateProductService} from './create-product.service';
 import {Brand} from '../../shared/views/brand';
@@ -21,17 +21,18 @@ export class CreateProductComponent implements OnInit {
 
   constructor(private createService: CreateProductService,
               private formBuilder: FormBuilder,
-              private location: Location) { }
+              private location: Location) {
+  }
 
   ngOnInit() {
     this.productForm = new FormGroup({
       productSKU: new FormControl(null, [Validators.required, this.createService.mustBeEight.bind(this), Validators.pattern(/^[0-9]{8}$/)]),
-      productName: new FormControl(null,[Validators.required, Validators.pattern(/^[\w\s]+$/i)]),
-      productBrand: new FormControl(null,[Validators.required]),
-      productPrice: new FormControl(0,[Validators.required, this.createService.minimumZeroValue.bind(this)]),
-      productStartFactor: new FormControl(null,[Validators.required, this.createService.minimumValue.bind(this)]),
-      productVariableCost: new FormControl(null,[Validators.required, this.createService.minimumValue.bind(this)]),
-      productGrowthFactor: new FormControl(null,[Validators.required, this.createService.minimumValue.bind(this)]),
+      productName: new FormControl(null, [Validators.required, Validators.pattern(/^[\w\s]+$/i)]),
+      productBrand: new FormControl(this.showDefaultValue(), [Validators.required]),
+      productPrice: new FormControl(0, [Validators.required, this.createService.minimumZeroValue.bind(this)]),
+      productStartFactor: new FormControl(null, [Validators.required, this.createService.minimumValue.bind(this)]),
+      productVariableCost: new FormControl(null, [Validators.required, this.createService.minimumValue.bind(this)]),
+      productGrowthFactor: new FormControl(null, [Validators.required, this.createService.minimumValue.bind(this)]),
       productsInsertMaterials: this.formBuilder.array([]),
       productQuantity: new FormControl(0, [Validators.required, this.createService.minimumZeroValue.bind(this)])
     });
@@ -86,25 +87,25 @@ export class CreateProductComponent implements OnInit {
   }
 
 
-
   createdTimer() {
     setTimeout(
       () => {
         this.createdCompleted = false;
       }, 5000
-    )
+    );
   }
 
   onClose() {
     this.location.back();
   }
+
   /**
    * VALIDATORS
    */
 
   maximumLimitMaterials(control: AbstractControl): { [key: string]: boolean } | null {
     if (this.materialForms.length > this.maxToAdd) {
-      return {'maximumError': true}
+      return {'maximumError': true};
     }
     return null;
   }
@@ -113,7 +114,7 @@ export class CreateProductComponent implements OnInit {
     const start = this.productForm.controls.productStartFactor.value;
     const variable = this.productForm.controls.productVariableCost.value;
     const growth = this.productForm.controls.productGrowthFactor.value;
-    return(+start > +variable && +variable > +growth);
+    return (+start > +variable && +variable > +growth);
   }
 
   private displayError() {
@@ -122,6 +123,16 @@ export class CreateProductComponent implements OnInit {
       () => {
         this.invalidOrder = false;
       }, 7500
-    )
+    );
+  }
+
+  private showDefaultValue() {
+    if (this.brandList) {
+      if (this.brandList.length > 0) {
+        return this.brandList[0];
+      }
+    } else {
+      return null;
+    }
   }
 }
