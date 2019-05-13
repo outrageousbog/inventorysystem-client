@@ -55,7 +55,7 @@ export class WebService {
   }
 
   deleteBrand(brandID: any) {
-    return this.http.delete(this.configURL + 'product/brands/', brandID);
+    return this.http.delete(this.configURL + 'product/brands/' + brandID);
   }
 
   createBrand(brand: any) {
