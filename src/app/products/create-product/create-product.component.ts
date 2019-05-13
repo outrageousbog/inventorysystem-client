@@ -28,7 +28,7 @@ export class CreateProductComponent implements OnInit {
     this.productForm = new FormGroup({
       productSKU: new FormControl(null, [Validators.required, this.createService.mustBeEight.bind(this), Validators.pattern(/^[0-9]{8}$/)]),
       productName: new FormControl(null, [Validators.required, Validators.pattern(/^[\w\s]+$/i)]),
-      productBrand: new FormControl(this.showDefaultValue(), [Validators.required]),
+      productBrand: new FormControl(null, [Validators.required]),
       productPrice: new FormControl(0, [Validators.required, this.createService.minimumZeroValue.bind(this)]),
       productStartFactor: new FormControl(null, [Validators.required, this.createService.minimumValue.bind(this)]),
       productVariableCost: new FormControl(null, [Validators.required, this.createService.minimumValue.bind(this)]),
@@ -124,15 +124,5 @@ export class CreateProductComponent implements OnInit {
         this.invalidOrder = false;
       }, 7500
     );
-  }
-
-  private showDefaultValue() {
-    if (this.brandList) {
-      if (this.brandList.length > 0) {
-        return this.brandList[0];
-      }
-    } else {
-      return null;
-    }
   }
 }

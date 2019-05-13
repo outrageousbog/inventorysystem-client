@@ -18,6 +18,7 @@
         <select class="form-control"
                 id="brand"
                 formControlName="productBrand">
+          <option hidden [value]=""  selected></option>
           <option *ngFor="let brand of brandList; let i = index">{{ brand.brandName }}</option>
         </select>
       </div>
