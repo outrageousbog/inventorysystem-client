@@ -18,7 +18,7 @@
         <select class="form-control"
                 id="brand"
                 formControlName="productBrand">
-          <option hidden [value]=""  selected></option>
+          <option hidden [value]="" selected></option>
           <option *ngFor="let brand of brandList; let i = index">{{ brand.brandName }}</option>
         </select>
       </div>
@@ -50,6 +50,9 @@
           <span *ngIf="productForm.get('productQuantity').errors['minimumZeroValue']" style="color: red;">
             Quantity must be a natural integer.
           </span>
+          <span *ngIf="productForm.get('productQuantity').errors['maxValue']" style="color: red;">
+            Number too large.
+          </span>
         </span>
       </div>
       <br>
@@ -71,8 +74,10 @@
         </div>
       </div>
       <br>
-        <button type="button" class="btn btn-success" id="add" [disabled]="materialForms.length > 4" (click)="addMaterial()">+</button>
-        <p *ngIf="materialForms.length > 4">You can add at most 5 materials</p>
+      <button type="button" class="btn btn-success" id="add" [disabled]="materialForms.length > 4"
+              (click)="addMaterial()">+
+      </button>
+      <p *ngIf="materialForms.length > 4">You can add at most 5 materials</p>
     </div>
     <hr>
     <h4>Costs</h4>
@@ -82,6 +87,15 @@
              type="number"
              id="price"
              class="form-control">
+      <span class="help-block"
+            *ngIf="!productForm.get('productPrice').valid && productForm.get('productPrice').touched">
+        <span *ngIf="productForm.get('productPrice').errors['minimumQuantity']" style="color: red;">
+            Price must be a natural integer.
+        </span>
+        <span *ngIf="productForm.get('productPrice').errors['maxValue']" style="color: red;">
+            Number too large.
+        </span>
+      </span>
     </div>
     <div class="form-row">
       <div class="col">
@@ -91,9 +105,12 @@
                id="startFactor"
                class="form-control">
         <span class="help-block"
-        *ngIf="!productForm.get('productStartFactor').valid && productForm.get('productStartFactor').touched">
+              *ngIf="!productForm.get('productStartFactor').valid && productForm.get('productStartFactor').touched">
           <span *ngIf="productForm.get('productStartFactor').errors['aboveZero']" style="color: red">
             Must be more than 0.
+          </span>
+          <span *ngIf="productForm.get('productStartFactor').errors['maxValue']" style="color: red;">
+            Number too large.
           </span>
         </span>
       </div>
@@ -108,6 +125,9 @@
           <span *ngIf="productForm.get('productGrowthFactor').errors['aboveZero']" style="color: red">
             Must be more than 0.
           </span>
+          <span *ngIf="productForm.get('productGrowthFactor').errors['maxValue']" style="color: red;">
+            Number too large.
+          </span>
         </span>
       </div>
 
@@ -118,6 +138,15 @@
              type="number"
              id="variableCost"
              class="form-control">
+      <span class="help-block"
+            *ngIf="!productForm.get('productVariableCost').valid && productForm.get('productVariableCost').touched">
+        <span *ngIf="productForm.get('productVariableCost').errors['aboveZero']" style="color: red">
+            Must be more than 0.
+          </span>
+      <span *ngIf="productForm.get('productVariableCost').errors['maxValue']" style="color: red;">
+            Number too large.
+          </span>
+      </span>
     </div>
     <button class="btn btn-success" [disabled]="!productForm.valid" type="submit">Create</button>
   </form>
@@ -145,4 +174,3 @@
     </div>
   </div>
 </div>
-

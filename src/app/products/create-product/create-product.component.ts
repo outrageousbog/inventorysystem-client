@@ -29,12 +29,12 @@ export class CreateProductComponent implements OnInit {
       productSKU: new FormControl(null, [Validators.required, this.createService.mustBeEight.bind(this), Validators.pattern(/^[0-9]{8}$/)]),
       productName: new FormControl(null, [Validators.required, Validators.pattern(/^[\w\s]+$/i)]),
       productBrand: new FormControl(null, [Validators.required]),
-      productPrice: new FormControl(0, [Validators.required, this.createService.minimumZeroValue.bind(this)]),
-      productStartFactor: new FormControl(null, [Validators.required, this.createService.minimumValue.bind(this)]),
-      productVariableCost: new FormControl(null, [Validators.required, this.createService.minimumValue.bind(this)]),
-      productGrowthFactor: new FormControl(null, [Validators.required, this.createService.minimumValue.bind(this)]),
+      productPrice: new FormControl(0, [Validators.required, this.createService.minimumZeroValue.bind(this), this.createService.maxValue.bind(this)]),
+      productStartFactor: new FormControl(null, [Validators.required, this.createService.minimumValue.bind(this), this.createService.maxValue.bind(this)]),
+      productVariableCost: new FormControl(null, [Validators.required, this.createService.minimumValue.bind(this), this.createService.maxValue.bind(this)]),
+      productGrowthFactor: new FormControl(null, [Validators.required, this.createService.minimumValue.bind(this), this.createService.maxValue.bind(this)]),
       productsInsertMaterials: this.formBuilder.array([]),
-      productQuantity: new FormControl(0, [Validators.required, this.createService.minimumZeroValue.bind(this)])
+      productQuantity: new FormControl(0, [Validators.required, this.createService.minimumZeroValue.bind(this), this.createService.maxValue.bind(this)])
     });
 
     this.createService.materialSubject

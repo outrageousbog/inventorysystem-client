@@ -85,4 +85,13 @@ export class CreateProductService {
     }
     return null;
   }
+
+  maxValue(control: AbstractControl) : {[key: string] : boolean} | null {
+    if(+control.value > 1500000) {
+      return {
+        'maxValue': true
+      };
+    }
+    return null;
+  }
 }

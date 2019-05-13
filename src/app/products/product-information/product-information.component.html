@@ -83,6 +83,9 @@
       <span *ngIf="editForm.get('productPrice').errors['minimumQuantity']" style="color: red;">
             Price must be a natural integer.
       </span>
+      <span *ngIf="editForm.get('productPrice').errors['maxValue']" style="color: red;">
+            Number too large.
+        </span>
     </span>
     <p><b>Variable Costs:</b></p>
     <input
@@ -93,6 +96,9 @@
       <span *ngIf="editForm.get('productVariableCost').errors['aboveZero']" style="color: red;">
             Must be more than 0.
       </span>
+      <span *ngIf="editForm.get('productVariableCost').errors['maxValue']" style="color: red;">
+            Number too large.
+        </span>
     </span>
     <p><b>Quantity:</b></p>
     <input
@@ -103,6 +109,9 @@
       <span *ngIf="editForm.get('productQuantity').errors['minimumQuantity']" style="color: red;">
             Quantity must be a natural integer.
       </span>
+      <span *ngIf="editForm.get('productQuantity').errors['maxValue']" style="color: red;">
+            Number too large.
+        </span>
     </span>
   </form>
 </ng-template>
